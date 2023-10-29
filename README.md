@@ -1,5 +1,5 @@
 # websockets-for-dummies
-
+![WebSockets for dummies cover](/assets/cover.png)
 ## Documentation
 ### Overall
 - [WebSocket vs HTTP](https://www.wallarm.com/what/a-simple-explanation-of-what-a-websocket-is)
