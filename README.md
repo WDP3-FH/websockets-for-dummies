@@ -1,5 +1,10 @@
 # websockets-for-dummies
-![WebSockets for dummies cover](https://github.com/WDP3-FH/websockets-for-dummies/blob/main/assets/cover.png)
+<img src="https://github.com/WDP3-FH/websockets-for-dummies/blob/main/assets/cover.png" align="right"
+     alt="book with 'WebSockets for dummies' as title" width="25%">
+**Thema**: WebSockets
+
+**Team**: Elias Rist, Jan Donnerbauer
+
 ## Documentation
 ### General
 - [WebSocket vs HTTP](https://www.wallarm.com/what/a-simple-explanation-of-what-a-websocket-is)
