@@ -1,16 +1,18 @@
 # websockets-for-dummies
 ![WebSockets for dummies cover](https://github.com/WDP3-FH/websockets-for-dummies/blob/main/assets/cover.png)
 ## Documentation
-### Overall
+### General
 - [WebSocket vs HTTP](https://www.wallarm.com/what/a-simple-explanation-of-what-a-websocket-is)
 - [MDN Web Dock WebSockets API](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
 - [MDN WebSocket client applications](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications)
 - [MDN WebSocket servers](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_servers)
 - [WebSockets Allgemein](https://www2.htw-dresden.de/~sobe/Internet_2017/Vo/5b_Websockets.pdf)
+- [WebSockets Introduction javascript.info](https://javascript.info/websocket)
 
 ### Node.js (for WebSocket Server)
-- [Node.js v20.9.0 documentation](https://nodejs.org/dist/latest-v20.x/docs/api/)
-
+- [Node.js NET documentation](https://nodejs.org/api/net.html)
+- [ws: a Node.js WebSocket library](https://www.npmjs.com/package/ws)
+  
 ### Socket.io 
 - [Plain WebSockets vs Socket.io](https://ably.com/topic/socketio-vs-websocket)
 - [Socket.io Server API](https://socket.io/docs/v4/server-api/)
