@@ -40,7 +40,7 @@
 ## OUTLINE / Struktur der Zusammenfassungs-Website / Präsentation
 1. **Einleitung zu WebSockets**
      <img src="https://assets-global.website-files.com/5ff66329429d880392f6cba2/63fe48adb8834a29a618ce84_148.3.png" align="right"
-     alt="book with 'WebSockets for dummies' as title" width="35%">
+     alt="WebSocket Communication Diagram" width="35%">
    - Funktionsweise von WebSockets erklären
         - Kommunikationsaufbau --> Kommunikation --> Kommunikationsabbau
         - Unterschiede zu HTTP
