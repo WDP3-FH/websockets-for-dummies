@@ -34,3 +34,20 @@
 
 ## Testing tools
 - [Simple WebSocket Client (Chrome Extension)](https://github.com/olshevskiy87/simple-websocket-client)
+
+
+## Struktur der Zusammenfassungs-Website / Präsentation
+
+1. **Einleitung zu WebSockets**
+   - Erklärung von WebSockets und deren Vorteile gegenüber anderen Kommunikationsprotokolle (HTTP).
+2. **WebSockets in der Praxis**
+   - Aufbau eines einfachen WebSocket-Servers mit Node.js
+   - Verwendung von Socket.io für erweiterte Funktionalität
+3. **Testwerkzeuge**
+   - Vorstellung und Anleitung zur Verwendung von Tools zur Überprüfung und Testen von WebSocket-Verbindungen.
+4. **Code-Beispiel**
+   - WebSocket Chat
+   - WebSocket Game
+5. **Zusätzliche Ressourcen**
+   - Empfehlungen und Schritt-für-Schritt-Anleitungen für die Erstellung von WebSocket-basierten Anwendungen.
+   - Videotutorials zur Veranschaulichung der Verwendung von WebSockets.
