@@ -78,6 +78,7 @@ body {
     padding: 18px 0;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .top-nav .nav-container ul li a {
@@ -96,6 +97,14 @@ body {
 
 .top-nav .nav-container ul li .darkmode-toggle:active {
   color: var(--alt-highlight-color);
+}
+
+.top-nav .nav-container ul li a .nav-logo {
+  width: 60px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /*=============================================
