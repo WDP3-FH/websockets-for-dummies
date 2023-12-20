@@ -196,6 +196,7 @@ main {
 main section {
   padding: 16px 0;
   margin: 16px 0;
+  scroll-margin-top: 100px;
 }
 
 h2 {
@@ -250,6 +251,10 @@ a:active {
   max-width: 100%;
   border-radius: 2.5px;
   border: 2.5px solid var(--highlight-color);
+}
+
+.project-team-member-content {
+  scroll-margin-top: 100px;
 }
 
 #project-team--elias-rist {
