@@ -37,6 +37,12 @@ window.onload = () => {
     observer.observe(section);
   });
 
+  document
+    .querySelectorAll(".project-team-member-content[id]")
+    .forEach((section) => {
+      observer.observe(section);
+    });
+
   /*----------  Dark Mode - Toggle  ----------*/
   const systemPrefersDarkMode = window.matchMedia(
     "(prefers-color-scheme: dark)"

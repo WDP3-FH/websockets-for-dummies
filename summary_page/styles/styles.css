@@ -232,7 +232,7 @@ a:active {
 }
 
 /*----------  Team  ----------*/
-#project-team h2{
+#project-team h2 {
   margin-bottom: 22px;
 }
 
@@ -262,6 +262,7 @@ a:active {
   .project-team-member {
     grid-template-columns: 1fr;
   }
+
   #project-team--elias-rist {
     text-align: left;
     grid-row: 4;
@@ -337,7 +338,7 @@ a:active {
 .main-footer {
   background-color: var(--alt-background-color);
   color: var(--alt-text-color);
-  margin: 0;
+  margin: 48px 0 0 0;
   width: 100%;
   font-size: 0.8em;
 }
