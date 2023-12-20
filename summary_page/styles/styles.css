@@ -17,7 +17,7 @@
   --light-grey: hsl(226, 8%, 70%);
 
   --font-family-default: 'Martel Sans', sans-serif;
-  --font-family-code: "placeholder";
+  --font-family-code: "monospace";
 }
 
 /* Kann leider nicht verwendet werden, weil keine Unterstützung für dark-mode-toggle-button */
@@ -218,6 +218,56 @@ h2 {
   color: var(--background-color);
 }
 
+/*----------  Resource-Links  ----------*/
+a {
+  color: var(--alt-main-color);
+}
+
+a:hover {
+  color: var(--highlight-color);
+}
+
+a:active {
+  color: var(--alt-highlight-color);
+}
+
+/*----------  Team  ----------*/
+#project-team h2{
+  margin-bottom: 22px;
+}
+
+.project-team-member {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 35px;
+}
+
+.project-team-member h3 {
+  margin-top: 0;
+}
+
+.project-team-member img {
+  max-width: 100%;
+  border-radius: 2.5px;
+  border: 2.5px solid var(--highlight-color);
+}
+
+#project-team--elias-rist {
+  text-align: right;
+  grid-row: 2;
+  grid-column: 1 / 1;
+}
+
+@media screen and (max-width: 760px) {
+  .project-team-member {
+    grid-template-columns: 1fr;
+  }
+  #project-team--elias-rist {
+    text-align: left;
+    grid-row: 4;
+    grid-column: 1 / 1;
+  }
+}
 
 
 /*----------  ScrollSpy-Navigation  ----------*/
