@@ -1,0 +1,108 @@
+/* colors */
+:root {
+  --background-color: #F8F8F9;
+  --alt-background-color: #455973;
+  --highlight-color: #33CA55;
+  --alt-highlight-color: #F2BA58;
+  /* --main-color: #37ACCD; */
+  --main-color: #33CAA0;
+  --light-main-color: #a8e9d7;
+  --alt-main-color: #33A9CA;
+  --text-color: hsl(225deg, 15%, 15%);
+  --alt-text-color: hsl(225deg, 12%, 40%);
+
+  --font-family-default: 'Martel Sans', sans-serif;
+  --font-family-code: "placeholder";
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  color: var(--text-color);
+  font-family: var(--font-family-default);
+  background-color: var(--background-color);
+  font-size: 1.125rem;
+  margin: 0;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0;
+  color: var(--main-color);
+}
+
+/*=============================================
+=               Main-Container                =
+=============================================*/
+
+main {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 10px;
+  width: clamp(250px, 90vw, 1100px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*----------  Content  ----------*/
+main section {
+  padding: 16px 32px;
+  margin: 16px;
+}
+
+
+
+/*----------  ScrollSpy-Navigation  ----------*/
+
+.scrollspy-nav {
+  position: sticky;
+  align-self: start;
+  top: 10px;
+}
+
+.scrollspy-nav p {
+  color: var(--text-color);
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.scrollspy-nav ul, .scrollspy-nav ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.scrollspy-nav li {
+  margin: 0;
+}
+
+.scrollspy-nav li li {
+  margin-left: 1rem;
+}
+
+.scrollspy-nav li a {
+  font-size: 0.9rem;
+  color: var(--alt-text-color);
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.scrollspy-nav li a.active {
+  color: var(--highlight-color);
+}
+
+@media screen and (max-width: 1080px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+
+  .scrollspy-nav {
+    display: none;
+  }
+}
