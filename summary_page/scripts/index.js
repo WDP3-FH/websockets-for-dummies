@@ -10,10 +10,16 @@ function toggleDarkMode() {
 
 window.onload = () => {
   /*----------  ScrollSpy  ----------*/
+  const navHeight = document
+    .querySelector(".top-nav")
+    .getBoundingClientRect().height;
   const observer = new IntersectionObserver((entries) => {
     // entries are all the sections with an id
     entries.forEach((entry) => {
       const id = entry.target.getAttribute("id");
+      const target = document.querySelector(
+        `.scrollspy-nav li a[href="#${id}"]`
+      );
 
       /*
       When the section is in the viewport,
@@ -21,13 +27,9 @@ window.onload = () => {
         otherwise remove it
       */
       if (entry.isIntersecting) {
-        document
-          .querySelector(`.scrollspy-nav li a[href="#${id}"]`)
-          .classList.add("active");
+        target.classList.add("active");
       } else {
-        document
-          .querySelector(`.scrollspy-nav li a[href="#${id}"]`)
-          .classList.remove("active");
+        target.classList.remove("active");
       }
     });
   });
