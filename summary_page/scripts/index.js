@@ -38,18 +38,6 @@ window.onload = () => {
   });
 
   /*----------  Dark Mode - Toggle  ----------*/
-  document
-    .getElementsByClassName("js-darkmode-toggle")[0]
-    .addEventListener("click", () => {
-      document
-        .getElementsByClassName("js-darkmode-sun")[0]
-        .classList.toggle("hidden");
-      document
-        .getElementsByClassName("js-darkmode-moon")[0]
-        .classList.toggle("hidden");
-    });
-
-  //DARK-MODE
   const systemPrefersDarkMode = window.matchMedia(
     "(prefers-color-scheme: dark)"
   ).matches;
