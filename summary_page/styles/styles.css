@@ -296,17 +296,16 @@ h2 {
   width: clamp(250px, 90vw, 1100px);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-columns: 1fr 2fr 1fr;
   gap: 10px;
   align-items: center;
   padding: 10px 0;
 }
 
 .main-footer span {
-  line-height: 0.8em;
+  line-height: 1em;
   font-size: 0.8em;
   color: var(--light-grey);
-  padding-bottom: 5px;
 }
 
 .main-footer p {
@@ -338,11 +337,21 @@ h2 {
   text-align: center;
 }
 
+.main-footer .topic p {
+  font-weight: bold;
+  font-size: 0.9rem;
+  line-height: 1rem;
+}
+
+.main-footer .topic span {
+  display: grid;
+}
+
 .main-footer .team {
   text-align: right;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 530px) {
   .main-footer .footer-content {
     grid-template-columns: 1fr 1fr;
   }
