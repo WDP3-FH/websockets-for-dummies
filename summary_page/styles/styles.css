@@ -102,6 +102,7 @@ body {
 .top-nav .nav-container ul li a .nav-logo {
   width: 60px;
   border-radius: 100%;
+  border: 2.5px solid var(--highlight-color);
   display: flex;
   justify-content: center;
   align-items: center;
