@@ -20,8 +20,25 @@
     --font-family-code: "placeholder";
 }
 
+/* Kann leider nicht verwendet werden, weil keine Unterstützung für dark-mode-toggle-button */
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #191919;
+    --alt-background-color: #171b3d;
+    --text-color: #FAF9F9;
+    --alt-text-color: #FAF9F9;
+  }
+} */
+
 * {
     box-sizing: border-box;
+}
+
+.dark-mode {
+  --background-color: #191919;
+  --alt-background-color: #171b3d;
+  --text-color: #FAF9F9;
+  --alt-text-color: #FAF9F9;
 }
 
 body {
