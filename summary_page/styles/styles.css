@@ -2,22 +2,22 @@
 =               Root                          =
 =============================================*/
 :root {
-    --background-color: #EFEFEF;
-    --alt-background-color: #03256C;
-    --highlight-color: #FFBC42;
-    --alt-highlight-color: #FFD6BA;
-    /* --main-color: #37ACCD; */
-    /* #3E71B9 */
-    --main-color: #1768AC;
-    --light-main-color: #FFBC42;
-    --alt-main-color: #02B0D3;
-    --text-color: hsl(225deg, 15%, 15%);
-    --alt-text-color: #FAF9F9;
-    /* --alt-text-color: hsl(225deg, 12%, 40%); */
-    --light-grey: hsl(226, 8%, 70%);
+  --background-color: #EFEFEF;
+  --alt-background-color: #03256C;
+  --highlight-color: #FFBC42;
+  --alt-highlight-color: #FFD6BA;
+  /* --main-color: #37ACCD; */
+  /* #3E71B9 */
+  --main-color: #1768AC;
+  --light-main-color: #FFBC42;
+  --alt-main-color: #02B0D3;
+  --text-color: hsl(225deg, 15%, 15%);
+  --alt-text-color: #FAF9F9;
+  /* --alt-text-color: hsl(225deg, 12%, 40%); */
+  --light-grey: hsl(226, 8%, 70%);
 
-    --font-family-default: 'Martel Sans', sans-serif;
-    --font-family-code: "placeholder";
+  --font-family-default: 'Martel Sans', sans-serif;
+  --font-family-code: "placeholder";
 }
 
 /* Kann leider nicht verwendet werden, weil keine Unterstützung für dark-mode-toggle-button */
@@ -31,7 +31,7 @@
 } */
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .dark-mode {
@@ -58,13 +58,13 @@ body {
 =============================================*/
 
 .top-nav {
-    background-color: var(--alt-background-color);
-    position: sticky;
-    top: 0;
-    left: 0;
-    z-index: 999;
-    width: 100%;
-    color: var(--alt-text-color)
+  background-color: var(--alt-background-color);
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  color: var(--alt-text-color)
 }
 
 .top-nav .nav-container {
@@ -73,12 +73,12 @@ body {
 }
 
 .top-nav .nav-container ul {
-    list-style: none;
-    margin: 0;
-    padding: 18px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 18px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .top-nav .nav-container ul li a {
@@ -124,26 +124,26 @@ body {
 }
 
 .headline-container {
-    padding: 0;
-    width: clamp(250px, 90vw, 1100px);
-    margin: 0 auto;
-    color: var(--alt-text-color);
+  padding: 0;
+  width: clamp(250px, 90vw, 1100px);
+  margin: 0 auto;
+  color: var(--alt-text-color);
 }
 
 .headline-container .feature-list {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .headline-container .feature-list .feature {
-    font-size: 0.8em;
-    cursor: pointer;
-    margin: 0;
-    height: 25px;
+  font-size: 0.8em;
+  cursor: pointer;
+  margin: 0;
+  height: 25px;
 }
 
 .headline-container .feature-list .feature:hover {
-    color: var(--highlight-color);
+  color: var(--highlight-color);
 }
 
 .headline-container .feature-list .feature:active {
@@ -151,24 +151,24 @@ body {
 }
 
 .headline-container .feature-list #feature-svg {
-    height: 25px;
-    padding-left: 8px;
-    color: var(--light-grey);
-    /* transform: translateY(2.5px); */
+  height: 25px;
+  padding-left: 8px;
+  color: var(--light-grey);
+  /* transform: translateY(2.5px); */
 }
 
 .headline-container h1 {
-    font-size: 3em;
-    margin-top: 32px;
-    margin-bottom: 0;
-    line-height: 1.2;
+  font-size: 3em;
+  margin-top: 32px;
+  margin-bottom: 0;
+  line-height: 1.2;
 }
 
 .headline-container .tagline {
-    margin: 0;
-    font-weight: 500;
-    font-style: italic;
-    /* transform: translateY(-20px); */
+  margin: 0;
+  font-weight: 500;
+  font-style: italic;
+  /* transform: translateY(-20px); */
 }
 
 @media screen and (max-width: 400px) {
@@ -185,7 +185,7 @@ body {
 main {
   display: grid;
   grid-template-columns: 1fr 220px;
-  gap: 10px;
+  gap: 50px;
   width: clamp(250px, 90vw, 1100px);
   margin-left: auto;
   margin-right: auto;
@@ -204,6 +204,20 @@ h2 {
   margin: 0;
   color: var(--main-color);
 }
+
+/*----------  Code  ----------*/
+.display-code {
+  font-family: var(--font-family-code);
+  font-size: 0.9em;
+  background-color: var(--text-color);
+  padding: 0px 20px;
+  border-radius: 4px;
+}
+
+.display-code code {
+  color: var(--background-color);
+}
+
 
 
 /*----------  ScrollSpy-Navigation  ----------*/
@@ -281,9 +295,47 @@ h2 {
 .main-footer .footer-content {
   width: clamp(250px, 90vw, 1100px);
   margin: 0 auto;
-  display: flex;
-  justify-content: space-between; 
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
   gap: 20px;
+  align-items: center;
+}
+
+.main-footer .topic {
+  text-align: center;
+}
+
+.main-footer span {
+  font-size: 0.8em;
+  color: var(--light-grey);
+}
+
+.main-footer p {
+  font-size: 0.9em;
+  color: var(--alt-text-color);
+  margin: 0;
+}
+
+
+/* 
+.main-footer .footer-content {
+  width: clamp(250px, 90vw, 1100px);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.main-footer .last-updated {
+  padding: 16px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+}
+
+.main-footer .last-updated p {
+  margin: 0;
+  font-weight: 500;
 }
 
 .main-footer .team {
@@ -295,12 +347,12 @@ h2 {
     flex-direction: column;
   }
 
-  .main-footer .team p{
+  .main-footer .team p {
     margin-bottom: 0;
   }
 
-  .main-footer .team ul{
+  .main-footer .team ul {
     margin-top: 0;
   }
-  
-}
+
+} */
