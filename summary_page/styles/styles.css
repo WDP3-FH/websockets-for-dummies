@@ -6,14 +6,11 @@
   --alt-background-color: #03256C;
   --highlight-color: #FFBC42;
   --alt-highlight-color: #FFD6BA;
-  /* --main-color: #37ACCD; */
-  /* #3E71B9 */
   --main-color: #1768AC;
   --light-main-color: #FFBC42;
   --alt-main-color: #02B0D3;
   --text-color: hsl(225deg, 15%, 15%);
   --alt-text-color: #FAF9F9;
-  /* --alt-text-color: hsl(225deg, 12%, 40%); */
   --light-grey: hsl(226, 8%, 70%);
 
   --font-family-default: 'Martel Sans', sans-serif;
@@ -34,6 +31,7 @@
   box-sizing: border-box;
 }
 
+/* body erhält dark-mode class, wenn darkmode entweder durch System oder durch User ausgewählt */
 .dark-mode {
   --background-color: #191919;
   --alt-background-color: #171b3d;
@@ -53,8 +51,20 @@ body {
   display: none;
 }
 
+a {
+  color: var(--alt-main-color);
+}
+
+a:hover {
+  color: var(--highlight-color);
+}
+
+a:active {
+  color: var(--alt-highlight-color);
+}
+
 /*=============================================
-=               Top-Naviagation               =
+=               Top-Navigation                =
 =============================================*/
 
 .top-nav {
@@ -154,7 +164,6 @@ body {
   height: 25px;
   padding-left: 8px;
   color: var(--light-grey);
-  /* transform: translateY(2.5px); */
 }
 
 .headline-container h1 {
@@ -168,7 +177,6 @@ body {
   margin: 0;
   font-weight: 500;
   font-style: italic;
-  /* transform: translateY(-20px); */
 }
 
 @media screen and (max-width: 400px) {
@@ -217,19 +225,6 @@ h2 {
 
 .display-code code {
   color: var(--background-color);
-}
-
-/*----------  Resource-Links  ----------*/
-a {
-  color: var(--alt-main-color);
-}
-
-a:hover {
-  color: var(--highlight-color);
-}
-
-a:active {
-  color: var(--alt-highlight-color);
 }
 
 /*----------  Team  ----------*/
