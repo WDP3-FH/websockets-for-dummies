@@ -60,6 +60,10 @@ socketIo.on("connection", function (socket) {
     players[socket.id].y = movementData.y;
     socket.broadcast.emit("playerMoved", players[socket.id]);
   });
+
+  socket.on("fireLaser", function (laserData) {
+    socketIo.emit("playerFiredLaser", laserData);
+  });
 });
 
 function getNextAvailableSprite() {
