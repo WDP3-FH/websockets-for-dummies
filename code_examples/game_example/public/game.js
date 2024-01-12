@@ -56,16 +56,19 @@ function preload() {
 ///////////////////////////
 
 function create() {
-  //Set background
+  var self = this;
+  this.socket = io();
+  this.otherPlayers = [];
+
+  // Hintergrundbild
   let background = this.add.sprite(0, 0, "background");
   background.setOrigin(0, 0);
   background.displayWidth = this.sys.game.config.width;
   background.displayHeight = this.sys.game.config.height;
 
-  var self = this;
-  this.socket = io();
-  this.otherPlayers = [];
-  //when receiving "currentPlayers" message:
+  //-----------------------
+  // Event: currentPlayers
+  //-----------------------
   this.socket.on("currentPlayers", function (players) {
     Object.keys(players).forEach(function (id) {
       if (players[id].playerId === self.socket.id) {
@@ -75,11 +78,17 @@ function create() {
       }
     });
   });
-  //when receiving "newPlayer" message:
+
+  //-----------------------
+  // Event: newPlayer
+  //-----------------------
   this.socket.on("newPlayer", function (playerInfo) {
     addOtherPlayers(self, playerInfo);
   });
-  //when receiving "myDisconnect" message:
+
+  //-----------------------
+  // Event: myDisconnect
+  //-----------------------
   this.socket.on("myDisconnect", function (playerId) {
     self.otherPlayers.forEach(function (otherPlayer) {
       if (playerId === otherPlayer.playerId) {
@@ -88,12 +97,18 @@ function create() {
       }
     });
   });
+
+  //-----------------------
+  // Event: gameIsFull
+  //-----------------------
   this.socket.on("gameIsFull", function () {
     alert("Game is full, please try again later");
   });
-  //when receiving "playerMoved" message:
+
+  //-----------------------
+  // Event: playerMoved
+  //-----------------------
   this.socket.on("playerMoved", function (playerInfo) {
-    console.log("Client: a user moved");
     self.otherPlayers.forEach(function (otherPlayer) {
       if (playerInfo.playerId === otherPlayer.playerId) {
         otherPlayer.setPosition(playerInfo.x, playerInfo.y);
@@ -104,53 +119,14 @@ function create() {
       }
     });
   });
-  //bind keyboard
+
+  // Tastatursteuerung
   this.cursors = this.input.keyboard.createCursorKeys();
 }
 
-///////////////////////////
-// Game loop
-///////////////////////////
-
-function update() {
-  if (this.player_ship) {
-    if (this.input.keyboard.checkDown(this.cursors.left, 250)) {
-      this.player_ship.x -= MOVEMENT_SPEED;
-      this.player_ship.shadow.x -= MOVEMENT_SPEED;
-    } else if (this.input.keyboard.checkDown(this.cursors.right, 250)) {
-      this.player_ship.x += MOVEMENT_SPEED;
-      this.player_ship.shadow.x += MOVEMENT_SPEED;
-    } else if (this.input.keyboard.checkDown(this.cursors.down, 250)) {
-      this.player_ship.y += MOVEMENT_SPEED;
-      this.player_ship.shadow.y += MOVEMENT_SPEED;
-    } else if (this.input.keyboard.checkDown(this.cursors.up, 250)) {
-      this.player_ship.y -= MOVEMENT_SPEED;
-      this.player_ship.shadow.y -= MOVEMENT_SPEED;
-    }
-    //emit player movement
-    var x = this.player_ship.x;
-    var y = this.player_ship.y;
-    if (
-      this.player_ship.oldPosition &&
-      (x !== this.player_ship.oldPosition.x ||
-        y !== this.player_ship.oldPosition.y)
-    ) {
-      this.socket.emit("playerMovement", {
-        x: this.player_ship.x,
-        y: this.player_ship.y,
-      });
-    }
-    //save old position data
-    this.player_ship.oldPosition = {
-      x: this.player_ship.x,
-      y: this.player_ship.y,
-    };
-  }
-}
-
-///////////////////////////
-// Helper functions
-///////////////////////////
+/*===============================*/
+// Helper functions: Game setup
+/*===============================*/
 
 function addPlayer(self, playerInfo) {
   self.player_ship = createNewShip(self, playerInfo);
@@ -189,4 +165,45 @@ function createShadow(self, playerInfo) {
   shadow.setScale(0.95);
 
   return shadow;
+}
+
+///////////////////////////
+// Game loop
+///////////////////////////
+
+function update() {
+  if (this.player_ship) {
+    if (this.input.keyboard.checkDown(this.cursors.left, 250)) {
+      this.player_ship.x -= MOVEMENT_SPEED;
+      this.player_ship.shadow.x -= MOVEMENT_SPEED;
+    } else if (this.input.keyboard.checkDown(this.cursors.right, 250)) {
+      this.player_ship.x += MOVEMENT_SPEED;
+      this.player_ship.shadow.x += MOVEMENT_SPEED;
+    } else if (this.input.keyboard.checkDown(this.cursors.down, 250)) {
+      this.player_ship.y += MOVEMENT_SPEED;
+      this.player_ship.shadow.y += MOVEMENT_SPEED;
+    } else if (this.input.keyboard.checkDown(this.cursors.up, 250)) {
+      this.player_ship.y -= MOVEMENT_SPEED;
+      this.player_ship.shadow.y -= MOVEMENT_SPEED;
+    }
+
+    // Bewegungsdaten vom Spieler an den Server senden
+    var x = this.player_ship.x;
+    var y = this.player_ship.y;
+    if (
+      this.player_ship.oldPosition &&
+      (x !== this.player_ship.oldPosition.x ||
+        y !== this.player_ship.oldPosition.y)
+    ) {
+      this.socket.emit("playerMovement", {
+        x: this.player_ship.x,
+        y: this.player_ship.y,
+      });
+    }
+    // Alte Position des Spielers aktualisieren
+    this.player_ship.oldPosition = {
+      x: this.player_ship.x,
+      y: this.player_ship.y,
+    };
+  }
 }
