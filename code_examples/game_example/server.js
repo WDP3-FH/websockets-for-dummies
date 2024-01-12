@@ -64,6 +64,10 @@ socketIo.on("connection", function (socket) {
   socket.on("fireLaser", function (laserData) {
     socketIo.emit("playerFiredLaser", laserData);
   });
+
+  socket.on("hitPlayer", function (data) {
+    socketIo.emit("playerHit", data);
+  });
 });
 
 function getNextAvailableSprite() {

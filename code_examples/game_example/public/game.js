@@ -29,7 +29,6 @@ const SHADOW_OFFSET = 10;
 
 var game = new Phaser.Game(config);
 var otherPlayers = [];
-var numLaserShots = 0;
 
 ///////////////////////////
 // Preload assets
@@ -116,6 +115,20 @@ function create() {
     fireLaser(self, laserData);
   });
 
+  //-----------------------
+  // Event: playerHit
+  //-----------------------
+  this.socket.on("playerHit", function (data) {
+    if (data.playerHitId == self.socket.id) {
+      playPlayerHitAnimation(self, self.player_ship);
+    } else {
+      otherPlayers.forEach(function (otherPlayer) {
+        if (data.playerHitId == otherPlayer.playerId) {
+          playPlayerHitAnimation(self, otherPlayer);
+        }
+      });
+    }
+  });
   // Tastatursteuerung
   this.cursors = this.input.keyboard.createCursorKeys();
 }
@@ -163,7 +176,7 @@ function fireLaser(self, laserData) {
   if (laserData.playerId !== self.socket.id) {
     const laser = createLaser(self, laserData);
 
-    self.tweens.add({
+    laser.tween = self.tweens.add({
       targets: laser,
       alpha: 0.8,
       duration: 500,
@@ -184,6 +197,26 @@ function createLaser(self, laserData) {
   return laser;
 }
 
+function playPlayerHitAnimation(scene, target) {
+  const originalX = target.x;
+  const shakeIntensity = 3;
+
+  scene.tweens.add({
+    targets: target,
+    alpha: 0.5,
+    duration: 500,
+    yoyo: true,
+    onComplete: function (tween, targets) {
+      targets[0].setAlpha(1);
+    },
+    onUpdate: function (tween) {
+      const progress = tween.progress;
+      const shakeOffset = Math.sin(progress * Math.PI * 10) * shakeIntensity;
+      target.x = originalX + shakeOffset;
+    },
+    onCompleteScope: this,
+  });
+}
 ///////////////////////////
 // Game loop
 ///////////////////////////
@@ -243,33 +276,41 @@ function fireLaserLocally() {
   let laserData = this.add.sprite(this.player_ship.x, this.player_ship.y, "laser");
   laserData.depth = 9;
   laserData.playerId = this.socket.id;
-  laserData.laserId = numLaserShots++;
 
-  this.tweens.add({
+  this.socket.emit("fireLaser", laserData);
+
+  let self = this; // Speichern Sie den Kontext von 'this' in einer Variable
+  laserData.tween = this.tweens.add({
     targets: laserData,
     alpha: 0.8,
     duration: 500,
     onComplete: function () {
       laserData.destroy();
     },
-    onUpdate: function () {
+    onUpdate: function (tween) {
       otherPlayers.forEach(function (otherPlayer) {
         if (checkOverlap(laserData, otherPlayer)) {
-          console.log("Collision detected");
+          self.socket.emit("hitPlayer", {
+            playerId: self.socket.id,
+            laserId: laserData.laserId,
+            playerHitId: otherPlayer.playerId,
+          });
         }
       });
       laserData.y -= 10;
     },
   });
-
-  this.socket.emit("fireLaser", laserData);
 }
 
 function checkOverlap(spriteA, spriteB) {
-  return (
-    spriteA.x < spriteB.x + spriteB.width &&
-    spriteA.x + spriteA.width > spriteB.x &&
-    spriteA.y < spriteB.y + spriteB.height &&
-    spriteA.y + spriteA.height > spriteB.y
-  );
+  if (spriteA.playerId !== spriteB.playerId) {
+    return (
+      spriteA.x < spriteB.x + spriteB.width &&
+      spriteA.x + spriteA.width > spriteB.x &&
+      spriteA.y < spriteB.y + spriteB.height &&
+      spriteA.y + spriteA.height > spriteB.y
+    );
+  } else {
+    return false;
+  }
 }
