@@ -1,7 +1,14 @@
-var express = require("express");
-var app = express();
-var server = require("http").Server(app);
-var socketIo = require("socket.io")(server);
+import { Server } from "socket.io";
+import express from "express";
+import { createServer } from "http";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+const app = express();
+const server = createServer(app);
+const socketIo = new Server(server);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 var players = {};
 var sprites = ["ship_blue", "ship_red", "ship_green", "ship_orange"];
@@ -69,7 +76,7 @@ function checkIfGameIsFull() {
   return Object.keys(players).length >= maxPlayers;
 }
 
-server.listen(8081, function () {
+server.listen(8081, () => {
   console.log(`Listening on Port: ${server.address().port}`);
   console.log(`IP: http://localhost:${server.address().port}`);
 });
