@@ -1,4 +1,7 @@
-//game.js
+///////////////////////////
+// Game settings
+///////////////////////////
+
 var config = {
   type: Phaser.AUTO,
   parent: "phaser-example",
@@ -13,10 +16,22 @@ var config = {
   },
 };
 
-const movementSpeed = 16;
-const shadowOffset = 10;
+///////////////////////////
+// Game constants
+///////////////////////////
+
+const MOVEMENT_SPEED = 16;
+const SHADOW_OFFSET = 10;
+
+///////////////////////////
+// Global variables
+///////////////////////////
 
 var game = new Phaser.Game(config);
+
+///////////////////////////
+// Preload assets
+///////////////////////////
 
 function preload() {
   this.load.image("background", "assets/map/first_map.png");
@@ -35,6 +50,10 @@ function preload() {
     "assets/kenney_pixel-shmup/Ships/ship_0015.png"
   );
 }
+
+///////////////////////////
+// Game setup
+///////////////////////////
 
 function create() {
   //Set background
@@ -64,6 +83,7 @@ function create() {
   this.socket.on("myDisconnect", function (playerId) {
     self.otherPlayers.forEach(function (otherPlayer) {
       if (playerId === otherPlayer.playerId) {
+        otherPlayer.shadow.destroy();
         otherPlayer.destroy();
       }
     });
@@ -77,6 +97,10 @@ function create() {
     self.otherPlayers.forEach(function (otherPlayer) {
       if (playerInfo.playerId === otherPlayer.playerId) {
         otherPlayer.setPosition(playerInfo.x, playerInfo.y);
+        otherPlayer.shadow.setPosition(
+          playerInfo.x - SHADOW_OFFSET,
+          playerInfo.y + SHADOW_OFFSET
+        );
       }
     });
   });
@@ -84,20 +108,24 @@ function create() {
   this.cursors = this.input.keyboard.createCursorKeys();
 }
 
+///////////////////////////
+// Game loop
+///////////////////////////
+
 function update() {
   if (this.player_ship) {
     if (this.input.keyboard.checkDown(this.cursors.left, 250)) {
-      this.player_ship.x -= movementSpeed;
-      this.player_ship_shadow.x -= movementSpeed;
+      this.player_ship.x -= MOVEMENT_SPEED;
+      this.player_ship.shadow.x -= MOVEMENT_SPEED;
     } else if (this.input.keyboard.checkDown(this.cursors.right, 250)) {
-      this.player_ship.x += movementSpeed;
-      this.player_ship_shadow.x += movementSpeed;
+      this.player_ship.x += MOVEMENT_SPEED;
+      this.player_ship.shadow.x += MOVEMENT_SPEED;
     } else if (this.input.keyboard.checkDown(this.cursors.down, 250)) {
-      this.player_ship.y += movementSpeed;
-      this.player_ship_shadow.y += movementSpeed;
+      this.player_ship.y += MOVEMENT_SPEED;
+      this.player_ship.shadow.y += MOVEMENT_SPEED;
     } else if (this.input.keyboard.checkDown(this.cursors.up, 250)) {
-      this.player_ship.y -= movementSpeed;
-      this.player_ship_shadow.y -= movementSpeed;
+      this.player_ship.y -= MOVEMENT_SPEED;
+      this.player_ship.shadow.y -= MOVEMENT_SPEED;
     }
     //emit player movement
     var x = this.player_ship.x;
@@ -120,25 +148,35 @@ function update() {
   }
 }
 
-function addPlayer(self, playerInfo) {
-  self.player_ship = self.add
-    .sprite(playerInfo.x, playerInfo.y, playerInfo.sprite)
-    .setOrigin(0.5, 0.5);
-  self.player_ship.depth = 10;
+///////////////////////////
+// Helper functions
+///////////////////////////
 
-  self.player_ship_shadow = createShadow(self, playerInfo);
+function addPlayer(self, playerInfo) {
+  self.player_ship = createNewShip(self, playerInfo);
 }
 
 function addOtherPlayers(self, playerInfo) {
-  const otherPlayer = self.add
-    .sprite(playerInfo.x, playerInfo.y, playerInfo.sprite)
-    .setOrigin(0.5, 0.5);
+  let otherPlayer = createNewShip(self, playerInfo);
+
   otherPlayer.playerId = playerInfo.playerId;
+
   self.otherPlayers.push(otherPlayer);
 }
 
+function createNewShip(self, playerInfo) {
+  let newShip = self.add
+    .sprite(playerInfo.x, playerInfo.y, playerInfo.sprite)
+    .setOrigin(0.5, 0.5);
+  newShip.depth = 10;
+
+  newShip.shadow = createShadow(self, playerInfo);
+
+  return newShip;
+}
+
 function createShadow(self, playerInfo) {
-  const shadow = self.add
+  let shadow = self.add
     .sprite(playerInfo.x, playerInfo.y, playerInfo.sprite)
     .setOrigin(0.5, 0.5);
 
@@ -146,8 +184,8 @@ function createShadow(self, playerInfo) {
   shadow.alpha = 0.15;
   shadow.depth = 9;
 
-  shadow.x -= shadowOffset;
-  shadow.y += shadowOffset;
+  shadow.x -= SHADOW_OFFSET;
+  shadow.y += SHADOW_OFFSET;
   shadow.setScale(0.95);
 
   return shadow;
