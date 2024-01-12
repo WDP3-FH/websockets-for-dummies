@@ -111,11 +111,7 @@ function create() {
   this.socket.on("playerMoved", function (playerInfo) {
     self.otherPlayers.forEach(function (otherPlayer) {
       if (playerInfo.playerId === otherPlayer.playerId) {
-        otherPlayer.setPosition(playerInfo.x, playerInfo.y);
-        otherPlayer.shadow.setPosition(
-          playerInfo.x - SHADOW_OFFSET,
-          playerInfo.y + SHADOW_OFFSET
-        );
+        setShipToPosition(otherPlayer, playerInfo.x, playerInfo.y);
       }
     });
   });
@@ -138,6 +134,13 @@ function addOtherPlayers(self, playerInfo) {
   otherPlayer.playerId = playerInfo.playerId;
 
   self.otherPlayers.push(otherPlayer);
+}
+
+function setShipToPosition(ship, x, y) {
+  ship.x = x;
+  ship.y = y;
+  ship.shadow.x = x - SHADOW_OFFSET;
+  ship.shadow.y = y + SHADOW_OFFSET;
 }
 
 function createNewShip(self, playerInfo) {
@@ -170,40 +173,50 @@ function createShadow(self, playerInfo) {
 ///////////////////////////
 // Game loop
 ///////////////////////////
-
 function update() {
   if (this.player_ship) {
-    if (this.input.keyboard.checkDown(this.cursors.left, 250)) {
-      this.player_ship.x -= MOVEMENT_SPEED;
-      this.player_ship.shadow.x -= MOVEMENT_SPEED;
-    } else if (this.input.keyboard.checkDown(this.cursors.right, 250)) {
-      this.player_ship.x += MOVEMENT_SPEED;
-      this.player_ship.shadow.x += MOVEMENT_SPEED;
-    } else if (this.input.keyboard.checkDown(this.cursors.down, 250)) {
-      this.player_ship.y += MOVEMENT_SPEED;
-      this.player_ship.shadow.y += MOVEMENT_SPEED;
-    } else if (this.input.keyboard.checkDown(this.cursors.up, 250)) {
-      this.player_ship.y -= MOVEMENT_SPEED;
-      this.player_ship.shadow.y -= MOVEMENT_SPEED;
-    }
-
-    // Bewegungsdaten vom Spieler an den Server senden
-    var x = this.player_ship.x;
-    var y = this.player_ship.y;
-    if (
-      this.player_ship.oldPosition &&
-      (x !== this.player_ship.oldPosition.x ||
-        y !== this.player_ship.oldPosition.y)
-    ) {
-      this.socket.emit("playerMovement", {
-        x: this.player_ship.x,
-        y: this.player_ship.y,
-      });
-    }
-    // Alte Position des Spielers aktualisieren
-    this.player_ship.oldPosition = {
-      x: this.player_ship.x,
-      y: this.player_ship.y,
-    };
+    handlePlayerInput.call(this);
+    sendPlayerMovement.call(this);
   }
+}
+
+function handlePlayerInput() {
+  if (checkKeyDown.call(this, this.cursors.left)) {
+    moveShip.call(this, this.player_ship, -MOVEMENT_SPEED, 0);
+  } else if (checkKeyDown.call(this, this.cursors.right)) {
+    moveShip.call(this, this.player_ship, MOVEMENT_SPEED, 0);
+  } else if (checkKeyDown.call(this, this.cursors.down)) {
+    moveShip.call(this, this.player_ship, 0, MOVEMENT_SPEED);
+  } else if (checkKeyDown.call(this, this.cursors.up)) {
+    moveShip.call(this, this.player_ship, 0, -MOVEMENT_SPEED);
+  }
+}
+
+function moveShip(ship, deltaX, deltaY) {
+  ship.x += deltaX;
+  ship.y += deltaY;
+  ship.shadow.x += deltaX;
+  ship.shadow.y += deltaY;
+}
+
+function checkKeyDown(cursors) {
+  return this.input.keyboard.checkDown(cursors, 150); // Für mind. 150ms gedrückt halten
+}
+
+function sendPlayerMovement() {
+  const { x, y } = this.player_ship;
+
+  if (
+    this.player_ship.oldPosition &&
+    (x !== this.player_ship.oldPosition.x ||
+      y !== this.player_ship.oldPosition.y)
+  ) {
+    this.socket.emit("playerMovement", { x, y });
+  }
+
+  updatePlayerOldPosition.call(this, x, y);
+}
+
+function updatePlayerOldPosition(x, y) {
+  this.player_ship.oldPosition = { x, y };
 }
