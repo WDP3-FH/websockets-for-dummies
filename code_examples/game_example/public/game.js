@@ -29,6 +29,7 @@ const SHADOW_OFFSET = 10;
 
 var game = new Phaser.Game(config);
 var otherPlayers = [];
+var playerHealth = 100;
 
 ///////////////////////////
 // Preload assets
@@ -57,6 +58,8 @@ function create() {
   background.setOrigin(0, 0);
   background.displayWidth = this.sys.game.config.width;
   background.displayHeight = this.sys.game.config.height;
+
+  healthText = this.add.text(16, 16, "Health: " + playerHealth + "%", { fontSize: "20px", fill: "#000" });
 
   //-----------------------
   // Event: currentPlayers
@@ -121,6 +124,13 @@ function create() {
   this.socket.on("playerHit", function (data) {
     if (data.playerHitId == self.socket.id) {
       playPlayerHitAnimation(self, self.player_ship);
+      playerHealth -= 10;
+
+      if (playerHealth <= 0) {
+        alert("You died!");
+        self.socket.disconnect();
+      }
+      updateHealthText();
     } else {
       otherPlayers.forEach(function (otherPlayer) {
         if (data.playerHitId == otherPlayer.playerId) {
@@ -217,6 +227,11 @@ function playPlayerHitAnimation(scene, target) {
     onCompleteScope: this,
   });
 }
+
+function updateHealthText() {
+  healthText.setText("Health: " + playerHealth + "%");
+}
+
 ///////////////////////////
 // Game loop
 ///////////////////////////
@@ -295,6 +310,9 @@ function fireLaserLocally() {
             laserId: laserData.laserId,
             playerHitId: otherPlayer.playerId,
           });
+
+          tween.stop();
+          laserData.destroy();
         }
       });
       laserData.y -= 10;
