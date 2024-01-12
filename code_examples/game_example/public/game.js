@@ -49,6 +49,7 @@ function preload() {
     "ship_ghost",
     "assets/kenney_pixel-shmup/Ships/ship_0015.png"
   );
+  this.load.image("")
 }
 
 ///////////////////////////
@@ -179,6 +180,10 @@ function update() {
     sendPlayerMovement.call(this);
   }
 }
+
+/*===============================*/
+// Helper functions: Game loop
+/*===============================*/
 
 function handlePlayerInput() {
   if (checkKeyDown.call(this, this.cursors.left)) {
