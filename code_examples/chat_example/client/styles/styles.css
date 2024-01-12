@@ -1,0 +1,65 @@
+:root {
+    --background-color: #191919;
+    --text-color: #faf9f9;
+    --font-family: "Courier New", Courier, monospace;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    color: var(--text-color);
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    font-size: 1.125em;
+    margin: 0;
+    padding: 0;
+}
+
+.hidden {
+    display: none;
+}
+
+.content-container {
+    margin: 0 32px;
+}
+
+.main-header {
+    position: sticky;
+    top: 0;
+    padding-top: 24px;
+    background-color: var(--background-color);
+}
+
+.headline-container h1 {
+    font-size: 1.125em;
+    margin: 0;
+}
+
+.headline-container .tagline {
+    margin: 9px 0;
+}
+
+input[type="text"],
+input[type="text"]:focus {
+    background: transparent;
+    border: none;
+    outline-width: 0;
+
+    color: var(--text-color);
+    font-family: var(--font-family-default);
+    font-size: 1em;
+}
+
+.username {
+    font-weight: bold;
+}
+
+.me {
+    color: green;
+}
+
+.notme {
+    color: red;
+}

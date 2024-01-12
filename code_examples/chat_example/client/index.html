@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>WebSockets for dummies - Chat Example</title>
+        <link href="./styles/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <header class="main-header">
+            <div class="content-container headline-container">
+                <h1>really cool chat&trade; [Version 6.1.024]</h1>
+                <p class="tagline">
+                    Copyright (c) 2009 <i>Company XYZ</i><br />
+                    All rights reserved.
+                </p>
+                <hr />
+            </div>
+        </header>
+        <main>
+            <div class="content-container">
+                <div id="login-container">
+                    YOUR username <i>&lt;press ENTER></i>:
+                    <input id="inputUsername" type="text" />
+                    <!-- <button id="btnLogin">login</button> -->
+                </div>
+                <div id="chat-container" class="hidden">
+                    <div id="text-container"></div>
+                    <div>
+                        <span class="insert-username me">Username:</span>
+                        <input id="inputChat" type="text" />
+                        <!-- <button id="btnSend">send</button> -->
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <script src="scripts/chat.js"></script>
+    </body>
+</html>
