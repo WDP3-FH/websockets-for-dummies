@@ -30,8 +30,11 @@ const SHADOW_OFFSET = 10;
 var game = new Phaser.Game(config);
 var otherPlayers = [];
 var otherLasers = [];
-var playerHealth = 100;
 var lasersAmountShot = 0;
+var playerHealth = 100;
+var healthBar;
+var healthBarWidth = 50;
+var healthBarHeight = 6;
 
 ///////////////////////////
 // Preload assets
@@ -55,13 +58,11 @@ function create() {
   var self = this;
   this.socket = io();
 
-  // Hintergrundbild
+  // Hintergrundbild:
   let background = this.add.sprite(0, 0, "background");
   background.setOrigin(0, 0);
   background.displayWidth = this.sys.game.config.width;
   background.displayHeight = this.sys.game.config.height;
-
-  healthText = this.add.text(16, 16, "Health: " + playerHealth + "%", { fontSize: "20px", fill: "#000" });
 
   //-----------------------
   // Event: currentPlayers
@@ -132,7 +133,7 @@ function create() {
         alert("You died!");
         self.socket.disconnect();
       }
-      updateHealthText();
+      updateHealthBar();
     } else {
       otherPlayers.forEach(function (otherPlayer) {
         if (data.playerHitId == otherPlayer.playerId) {
@@ -141,7 +142,15 @@ function create() {
       });
     }
   });
-  // Tastatursteuerung
+
+  // Kamera:
+  this.cameras.main.setBounds(0, 0, config.width, config.height);
+
+  // Lebensanzeige:
+  healthBar = this.add.graphics();
+  updateHealthBar();
+
+  // Tastatursteuerung:
   this.cursors = this.input.keyboard.createCursorKeys();
 }
 
@@ -264,10 +273,6 @@ function playPlayerHitAnimation(self, target) {
   });
 }
 
-function updateHealthText() {
-  healthText.setText("Health: " + playerHealth + "%");
-}
-
 ///////////////////////////
 // Game loop
 ///////////////////////////
@@ -276,6 +281,12 @@ function update() {
   if (this.player_ship) {
     handlePlayerInput.call(this);
     sendPlayerMovement.call(this);
+
+    // Kamera:
+    this.cameras.main.startFollow(this.player_ship, true, 1, 1);
+    this.cameras.main.setZoom(Phaser.Math.Clamp(this.cameras.main.zoom, 1.2, 1.2));
+    updateHealthBar();
+    updateHealthBarPosition(this);
   }
 }
 
@@ -308,10 +319,24 @@ function handlePlayerInput() {
 }
 
 function moveShip(ship, deltaX, deltaY) {
+  var oldX = ship.x;
+  var oldY = ship.y;
+
   ship.x += deltaX;
   ship.y += deltaY;
   ship.shadow.x += deltaX;
   ship.shadow.y += deltaY;
+
+  if (!isInsideBorder(ship)) {
+    ship.x = oldX;
+    ship.y = oldY;
+    ship.shadow.x = oldX - SHADOW_OFFSET;
+    ship.shadow.y = oldY + SHADOW_OFFSET;
+  }
+}
+
+function isInsideBorder(gameObject) {
+  return gameObject.x > 1 && gameObject.x < config.width && gameObject.y > 1 && gameObject.y < config.height;
 }
 
 function checkKeyDown(cursors) {
@@ -415,4 +440,26 @@ function setLaserDirection(angle) {
   } else if (angle == 270 || angle == -90) {
     return "left";
   }
+}
+
+function updateHealthBar() {
+  let healthBarBackgroundColor = 0xbdc3c7;
+  let healthBarColor = 0xe74c3c;
+  let healthBarOpacity = 0.5;
+
+  healthBar.clear();
+  healthBar.depth = 10;
+
+  if (playerHealth < 100) {
+    healthBar.fillStyle(healthBarBackgroundColor, healthBarOpacity);
+    healthBar.fillRect(10, 10, healthBarWidth, healthBarHeight);
+
+    healthBar.fillStyle(healthBarColor, healthBarOpacity);
+    healthBar.fillRect(10, 10, healthBarWidth * (playerHealth / 100), healthBarHeight);
+  }
+}
+
+function updateHealthBarPosition(scene) {
+  healthBar.x = scene.player_ship.x - healthBarWidth + 15;
+  healthBar.y = scene.player_ship.y + healthBarHeight + 5;
 }
