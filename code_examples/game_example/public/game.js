@@ -362,8 +362,6 @@ function fireLaserLocally() {
             playerHitId: otherPlayer.playerId,
           });
 
-          console.log("My id: " + self.socket.id, "Player hit id: " + otherPlayer.playerId, "Laser id: " + laserData.laserId);
-
           laserData.tween.remove();
           laserData.destroy();
         }
