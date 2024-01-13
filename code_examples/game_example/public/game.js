@@ -29,7 +29,9 @@ const SHADOW_OFFSET = 10;
 
 var game = new Phaser.Game(config);
 var otherPlayers = [];
+var otherLasers = [];
 var playerHealth = 100;
+var lasersAmountShot = 0;
 
 ///////////////////////////
 // Preload assets
@@ -106,7 +108,7 @@ function create() {
   this.socket.on("playerMoved", function (playerInfo) {
     otherPlayers.forEach(function (otherPlayer) {
       if (playerInfo.playerId === otherPlayer.playerId) {
-        setShipToPosition(otherPlayer, playerInfo.x, playerInfo.y);
+        setShipToPosition(otherPlayer, playerInfo.x, playerInfo.y, playerInfo.angle);
       }
     });
   });
@@ -157,17 +159,20 @@ function addOtherPlayers(self, playerInfo) {
   otherPlayers.push(otherPlayer);
 }
 
-function setShipToPosition(ship, x, y) {
+function setShipToPosition(ship, x, y, angle) {
   ship.x = x;
   ship.y = y;
   ship.shadow.x = x - SHADOW_OFFSET;
   ship.shadow.y = y + SHADOW_OFFSET;
+  ship.angle = angle;
+  ship.shadow.angle = angle;
 }
 
 function createNewShip(self, playerInfo) {
   let newShip = self.add.sprite(playerInfo.x, playerInfo.y, playerInfo.sprite).setOrigin(0.5, 0.5);
   newShip.depth = 10;
   newShip.shadow = createShadow(self, playerInfo);
+  newShip.angle = 0;
   return newShip;
 }
 
@@ -184,17 +189,37 @@ function createShadow(self, playerInfo) {
 
 function fireLaser(self, laserData) {
   if (laserData.playerId !== self.socket.id) {
-    const laser = createLaser(self, laserData);
+    let laser = createLaser(self, laserData);
+    otherLasers.push(laser);
 
     laser.tween = self.tweens.add({
       targets: laser,
       alpha: 0.8,
       duration: 500,
       onComplete: function () {
+        otherLasers.splice(otherLasers.indexOf(laser), 1);
+        laser.tween.remove();
         laser.destroy();
       },
       onUpdate: function () {
-        laser.y -= 10;
+        switch (laser.shootingDirection) {
+          case "up":
+            laser.angle = 0;
+            laser.y -= 10;
+            break;
+          case "right":
+            laser.angle = 90;
+            laser.x += 10;
+            break;
+          case "down":
+            laser.angle = 180;
+            laser.y += 10;
+            break;
+          case "left":
+            laser.angle = 270;
+            laser.x -= 10;
+            break;
+        }
       },
     });
   }
@@ -204,14 +229,22 @@ function createLaser(self, laserData) {
   const laser = self.add.sprite(laserData.x, laserData.y, "laser");
   laser.playerId = laserData.playerId;
   laser.laserId = laserData.laserId;
+  laser.shootingDirection = laserData.shootingDirection;
   return laser;
 }
 
-function playPlayerHitAnimation(scene, target) {
+function playPlayerHitAnimation(self, target) {
   const originalX = target.x;
   const shakeIntensity = 3;
 
-  scene.tweens.add({
+  otherLasers.forEach(function (laser) {
+    if (checkOverlap(laser, target)) {
+      laser.tween.remove();
+      laser.destroy();
+    }
+  });
+
+  self.tweens.add({
     targets: target,
     alpha: 0.5,
     duration: 500,
@@ -248,12 +281,20 @@ function update() {
 
 function handlePlayerInput() {
   if (checkKeyDown.call(this, this.cursors.left)) {
+    this.player_ship.angle = 270;
+    this.player_ship.shadow.angle = 270;
     moveShip.call(this, this.player_ship, -MOVEMENT_SPEED, 0);
   } else if (checkKeyDown.call(this, this.cursors.right)) {
+    this.player_ship.angle = 90;
+    this.player_ship.shadow.angle = 90;
     moveShip.call(this, this.player_ship, MOVEMENT_SPEED, 0);
   } else if (checkKeyDown.call(this, this.cursors.down)) {
+    this.player_ship.angle = 180;
+    this.player_ship.shadow.angle = 180;
     moveShip.call(this, this.player_ship, 0, MOVEMENT_SPEED);
   } else if (checkKeyDown.call(this, this.cursors.up)) {
+    this.player_ship.angle = 0;
+    this.player_ship.shadow.angle = 0;
     moveShip.call(this, this.player_ship, 0, -MOVEMENT_SPEED);
   }
 
@@ -274,13 +315,14 @@ function checkKeyDown(cursors) {
 }
 
 function sendPlayerMovement() {
-  const { x, y } = this.player_ship;
-
-  if (this.player_ship.oldPosition && (x !== this.player_ship.oldPosition.x || y !== this.player_ship.oldPosition.y)) {
-    this.socket.emit("playerMovement", { x, y });
+  if (
+    this.player_ship.oldPosition &&
+    (this.player_ship.x !== this.player_ship.oldPosition.x || this.player_ship.y !== this.player_ship.oldPosition.y)
+  ) {
+    this.socket.emit("playerMovement", { x: this.player_ship.x, y: this.player_ship.y, angle: this.player_ship.angle });
   }
 
-  updatePlayerOldPosition.call(this, x, y);
+  updatePlayerOldPosition.call(this, this.player_ship.x, this.player_ship.y);
 }
 
 function updatePlayerOldPosition(x, y) {
@@ -291,15 +333,24 @@ function fireLaserLocally() {
   let laserData = this.add.sprite(this.player_ship.x, this.player_ship.y, "laser");
   laserData.depth = 9;
   laserData.playerId = this.socket.id;
+  laserData.laserId = lasersAmountShot++;
+  laserData.shootingDirection = setLaserDirection(this.player_ship.angle).toString();
 
-  this.socket.emit("fireLaser", laserData);
+  this.socket.emit("fireLaser", {
+    x: laserData.x,
+    y: laserData.y,
+    playerId: laserData.playerId,
+    laserId: laserData.laserId,
+    shootingDirection: laserData.shootingDirection,
+  });
 
-  let self = this; // Speichern Sie den Kontext von 'this' in einer Variable
+  let self = this;
   laserData.tween = this.tweens.add({
     targets: laserData,
     alpha: 0.8,
     duration: 500,
     onComplete: function () {
+      laserData.tween.remove();
       laserData.destroy();
     },
     onUpdate: function (tween) {
@@ -311,11 +362,30 @@ function fireLaserLocally() {
             playerHitId: otherPlayer.playerId,
           });
 
-          tween.stop();
+          console.log("My id: " + self.socket.id, "Player hit id: " + otherPlayer.playerId, "Laser id: " + laserData.laserId);
+
+          laserData.tween.remove();
           laserData.destroy();
         }
       });
-      laserData.y -= 10;
+      switch (laserData.shootingDirection) {
+        case "up":
+          laserData.angle = 0;
+          laserData.y -= 10;
+          break;
+        case "right":
+          laserData.angle = 90;
+          laserData.x += 10;
+          break;
+        case "down":
+          laserData.angle = 180;
+          laserData.y += 10;
+          break;
+        case "left":
+          laserData.angle = 270;
+          laserData.x -= 10;
+          break;
+      }
     },
   });
 }
@@ -330,5 +400,17 @@ function checkOverlap(spriteA, spriteB) {
     );
   } else {
     return false;
+  }
+}
+
+function setLaserDirection(angle) {
+  if (angle == 0) {
+    return "up";
+  } else if (angle == 90 || angle == -270) {
+    return "right";
+  } else if (angle == 180 || angle == -180) {
+    return "down";
+  } else if (angle == 270 || angle == -90) {
+    return "left";
   }
 }
