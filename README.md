@@ -21,6 +21,7 @@
   
 #### Socket.io 
 - [Plain WebSockets vs Socket.io](https://ably.com/topic/socketio-vs-websocket)
+- [What Socket.IO is not](https://socket.io/docs/v4/#what-socketio-is-not)
 - [Socket.io Server API](https://socket.io/docs/v4/server-api/)
 - [Socket.io Client API](https://socket.io/docs/v4/client-api/)
 - [Working WebSocket Chat Example](https://socket.io/demos/chat/)
