@@ -45,11 +45,15 @@ input[type="text"],
 input[type="text"]:focus {
     background: transparent;
     border: none;
+    border-bottom: 1.5px dashed var(--text-color);
     outline-width: 0;
 
     color: var(--text-color);
     font-family: var(--font-family-default);
     font-size: 1em;
+
+    width: 200px; /* placeholder width -> will be overwritten by js */
+    min-width: 200px;
 }
 
 .username {
