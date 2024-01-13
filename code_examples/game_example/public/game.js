@@ -256,6 +256,9 @@ function playPlayerHitAnimation(self, target) {
       const progress = tween.progress;
       const shakeOffset = Math.sin(progress * Math.PI * 10) * shakeIntensity;
       target.x = originalX + shakeOffset;
+      if (target.shadow) {
+        target.shadow.x = originalX + shakeOffset - SHADOW_OFFSET;
+      }
     },
     onCompleteScope: this,
   });
@@ -268,6 +271,7 @@ function updateHealthText() {
 ///////////////////////////
 // Game loop
 ///////////////////////////
+
 function update() {
   if (this.player_ship) {
     handlePlayerInput.call(this);
