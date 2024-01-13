@@ -11,7 +11,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 var players = {};
-var sprites = ["ship_blue", "ship_red", "ship_green", "ship_orange"];
+var sprites = ["ship_blue", "ship_red", "ship_green", "ship_orange", "ship_grey", "ship_brown", "ship_green_orange", "ship_red_blue", "ship_black"];
 //var maxPlayers = sprites.length;
 var maxPlayers = sprites.length;
 var defaultSprite = "ship_ghost";

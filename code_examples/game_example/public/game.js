@@ -46,6 +46,11 @@ function preload() {
   this.load.image("ship_red", "assets/kenney_pixel-shmup/Ships/ship_0001.png");
   this.load.image("ship_green", "assets/kenney_pixel-shmup/Ships/ship_0002.png");
   this.load.image("ship_orange", "assets/kenney_pixel-shmup/Ships/ship_0003.png");
+  this.load.image("ship_grey", "assets/kenney_pixel-shmup/Ships/ship_0024.png");
+  this.load.image("ship_brown", "assets/kenney_pixel-shmup/Ships/ship_0025.png");
+  this.load.image("ship_green_orange", "assets/kenney_pixel-shmup/Ships/ship_0026.png");
+  this.load.image("ship_red_blue", "assets/kenney_pixel-shmup/Ships/ship_0027.png");
+  this.load.image("ship_black", "assets/kenney_pixel-shmup/Ships/ship_0028.png");
   this.load.image("ship_ghost", "assets/kenney_pixel-shmup/Ships/ship_0015.png");
   this.load.image("laser", "assets/kenney_pixel-shmup/Tiles/tile_0000.png");
 }
