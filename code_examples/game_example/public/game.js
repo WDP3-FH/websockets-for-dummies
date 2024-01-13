@@ -22,6 +22,9 @@ var config = {
 
 const MOVEMENT_SPEED = 16;
 const SHADOW_OFFSET = 10;
+const HEALTH_BAR_WIDTH = 50;
+const HEALTH_BAR_HEIGHT = 6;
+const HEALTH_PACK_HEALING_AMOUNT = 20;
 
 ///////////////////////////
 // Global variables
@@ -33,8 +36,7 @@ var otherLasers = [];
 var lasersAmountShot = 0;
 var playerHealth = 100;
 var healthBar;
-var healthBarWidth = 50;
-var healthBarHeight = 6;
+var healingPacks = [];
 
 ///////////////////////////
 // Preload assets
@@ -53,6 +55,7 @@ function preload() {
   this.load.image("ship_black", "assets/kenney_pixel-shmup/Ships/ship_0028.png");
   this.load.image("ship_ghost", "assets/kenney_pixel-shmup/Ships/ship_0015.png");
   this.load.image("laser", "assets/kenney_pixel-shmup/Tiles/tile_0000.png");
+  this.load.image("healing_pack", "assets/kenney_pixel-shmup/Tiles/tile_0024.png");
 }
 
 ///////////////////////////
@@ -146,6 +149,34 @@ function create() {
         }
       });
     }
+  });
+
+  //-----------------------
+  // Event: spawnHealingPack
+  //-----------------------
+  this.socket.on("spawnHealingPack", (healingPack) => {
+    createHealingPack(self, healingPack);
+  });
+
+  //-----------------------
+  // Event: spawnHealingPacks
+  //-----------------------
+  this.socket.on("spawnHealingPacks", (healingPacks) => {
+    healingPacks.forEach((healingPack) => {
+      createHealingPack(self, healingPack);
+    });
+  });
+
+  //-----------------------
+  // Event: playerCollectedHealingPack
+  //-----------------------
+  this.socket.on("playerCollectedHealingPack", (healingPackData) => {
+    healingPacks.forEach((healingPack) => {
+      if (healingPack.x === healingPackData.x && healingPack.y === healingPackData.y) {
+        healingPacks.splice(healingPacks.indexOf(healingPack), 1);
+        healingPack.destroy();
+      }
+    });
   });
 
   // Kamera:
@@ -278,6 +309,20 @@ function playPlayerHitAnimation(self, target) {
   });
 }
 
+function createHealingPack(self, healingPack) {
+  const newHealingPack = self.add.sprite(healingPack.x, healingPack.y, "healing_pack").setInteractive();
+  newHealingPack.depth = 5;
+  healingPacks.push(newHealingPack);
+
+  self.time.addEvent({
+    delay: 60000,
+    callback: () => {
+      healingPacks.splice(healingPacks.indexOf(newHealingPack), 1);
+      newHealingPack.destroy();
+    },
+  });
+}
+
 ///////////////////////////
 // Game loop
 ///////////////////////////
@@ -292,6 +337,16 @@ function update() {
     this.cameras.main.setZoom(Phaser.Math.Clamp(this.cameras.main.zoom, 1.2, 1.2));
     updateHealthBar();
     updateHealthBarPosition(this);
+
+    healingPacks.forEach((healingPack) => {
+      if (checkOverlap(this.player_ship, healingPack)) {
+        increaseHealt(HEALTH_PACK_HEALING_AMOUNT);
+
+        healingPacks.splice(healingPacks.indexOf(healingPack), 1);
+        this.socket.emit("collectHealingPack", healingPack);
+        healingPack.destroy();
+      }
+    });
   }
 }
 
@@ -423,7 +478,7 @@ function fireLaserLocally() {
 }
 
 function checkOverlap(spriteA, spriteB) {
-  if (spriteA.playerId !== spriteB.playerId) {
+  if (spriteA.playerId !== spriteB.playerId || spriteB.playerId === undefined) {
     return (
       spriteA.x < spriteB.x + spriteB.width &&
       spriteA.x + spriteA.width > spriteB.x &&
@@ -447,6 +502,14 @@ function setLaserDirection(angle) {
   }
 }
 
+function increaseHealt(amount) {
+  playerHealth += amount;
+  if (playerHealth > 100) {
+    playerHealth = 100;
+  }
+  updateHealthBar();
+}
+
 function updateHealthBar() {
   let healthBarBackgroundColor = 0xbdc3c7;
   let healthBarColor = 0xe74c3c;
@@ -457,14 +520,14 @@ function updateHealthBar() {
 
   if (playerHealth < 100) {
     healthBar.fillStyle(healthBarBackgroundColor, healthBarOpacity);
-    healthBar.fillRect(10, 10, healthBarWidth, healthBarHeight);
+    healthBar.fillRect(10, 10, HEALTH_BAR_WIDTH, HEALTH_BAR_HEIGHT);
 
     healthBar.fillStyle(healthBarColor, healthBarOpacity);
-    healthBar.fillRect(10, 10, healthBarWidth * (playerHealth / 100), healthBarHeight);
+    healthBar.fillRect(10, 10, HEALTH_BAR_WIDTH * (playerHealth / 100), HEALTH_BAR_HEIGHT);
   }
 }
 
 function updateHealthBarPosition(scene) {
-  healthBar.x = scene.player_ship.x - healthBarWidth + 15;
-  healthBar.y = scene.player_ship.y + healthBarHeight + 5;
+  healthBar.x = scene.player_ship.x - HEALTH_BAR_WIDTH + 15;
+  healthBar.y = scene.player_ship.y + HEALTH_BAR_HEIGHT + 5;
 }

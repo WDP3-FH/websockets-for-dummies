@@ -10,11 +10,17 @@ const socketIo = new Server(server);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+const gameMapSize = {
+  width: 960,
+  height: 640,
+};
+
 var players = {};
 var sprites = ["ship_blue", "ship_red", "ship_green", "ship_orange", "ship_grey", "ship_brown", "ship_green_orange", "ship_red_blue", "ship_black"];
 //var maxPlayers = sprites.length;
 var maxPlayers = sprites.length;
 var defaultSprite = "ship_ghost";
+var healingPacks = [];
 
 app.use(express.static(__dirname + "/public"));
 app.get("/", function (req, res) {
@@ -32,13 +38,14 @@ socketIo.on("connection", function (socket) {
   console.log("Server: a user connected");
 
   players[socket.id] = {
-    x: Math.floor(Math.random() * 400) + 50, //400 ... Breite des möglichen bereiches zum spawnen ab Startpunkt  50 ... Startpunkt
-    y: Math.floor(Math.random() * 400) + 50, //Höhe
+    x: Math.floor(Math.random() * gameMapSize.width - 100) + 50,
+    y: Math.floor(Math.random() * gameMapSize.height - 100) + 50,
     playerId: socket.id,
     sprite: getNextAvailableSprite(),
   };
 
   socket.emit("currentPlayers", players);
+  socket.emit("spawnHealingPacks", healingPacks);
 
   // Alle anderen Spieler über den neuen Spieler informieren
   socket.broadcast.emit("newPlayer", players[socket.id]);
@@ -69,7 +76,24 @@ socketIo.on("connection", function (socket) {
   socket.on("hitPlayer", function (data) {
     socketIo.emit("playerHit", data);
   });
+
+  sendHealingPackToAll(socketIo);
+
+  socket.on("collectHealingPack", (healingPackData) => {
+    healingPacks.forEach((healingPack) => {
+      if (healingPack.x === healingPackData.x && healingPack.y === healingPackData.y) {
+        healingPacks.splice(healingPacks.indexOf(healingPack), 1);
+      }
+    });
+    socketIo.emit("playerCollectedHealingPack", healingPackData);
+  });
 });
+
+setHealingPackInterval(socketIo);
+
+/*===============================*/
+// Helper functions:
+/*===============================*/
 
 function getNextAvailableSprite() {
   if (sprites.length > 0) {
@@ -83,6 +107,31 @@ function getNextAvailableSprite() {
 
 function checkIfGameIsFull() {
   return Object.keys(players).length >= maxPlayers;
+}
+
+function createHealingPackItem() {
+  return {
+    x: Math.floor(Math.random() * gameMapSize.width),
+    y: Math.floor(Math.random() * gameMapSize.height),
+  };
+}
+
+function sendHealingPackToAll(socketIo) {
+  const newHealingPack = createHealingPackItem();
+  healingPacks.push(newHealingPack);
+
+  socketIo.emit("spawnHealingPack", newHealingPack);
+
+  setHealingPackInterval(socketIo);
+}
+
+function setHealingPackInterval(socketIo) {
+  // Zufällige Zeit zwischen 30Sekunden und 2 Minuten
+  const randomInterval = Math.floor(Math.random() * (120000 - 30000 + 1) + 30000);
+
+  setTimeout(() => {
+    sendHealingPackToAll(socketIo);
+  }, randomInterval);
 }
 
 server.listen(8081, () => {
