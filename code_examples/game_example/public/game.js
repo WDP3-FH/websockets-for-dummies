@@ -445,7 +445,7 @@ function setLaserDirection(angle) {
 function updateHealthBar() {
   let healthBarBackgroundColor = 0xbdc3c7;
   let healthBarColor = 0xe74c3c;
-  let healthBarOpacity = 0.5;
+  let healthBarOpacity = 0.7;
 
   healthBar.clear();
   healthBar.depth = 10;
