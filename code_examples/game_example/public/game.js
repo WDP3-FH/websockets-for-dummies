@@ -37,6 +37,7 @@ var lasersAmountShot = 0;
 var playerHealth = 100;
 var healthBar;
 var healingPacks = [];
+var playerDied = false;
 
 ///////////////////////////
 // Preload assets
@@ -139,8 +140,33 @@ function create() {
       playerHealth -= 10;
 
       if (playerHealth <= 0) {
-        alert("You died!");
+        otherPlayers.forEach(function (otherPlayer) {
+          otherPlayer.destroy();
+          otherPlayer.shadow.destroy();
+        });
+        self.player_ship.destroy();
+        self.player_ship.shadow.destroy();
+        healthBar.destroy();
+
+        healingPacks.forEach((healingPack) => {
+          healingPack.destroy();
+        });
+
+        otherLasers.forEach((laser) => {
+          laser.destroy();
+        });
+
         self.socket.disconnect();
+
+        //setze Kamera zurück
+        self.cameras.main.stopFollow();
+        self.cameras.main.setZoom(1);
+        self.cameras.main.setBounds(0, 0, config.width, config.height);
+        playerDied = true;
+
+        self.add.rectangle(0, 0, config.width, config.height, 0x000000, 0.8).setOrigin(0, 0);
+        self.add.text(config.width / 2 - 100, config.height / 2 - 20, "You died!", { fontSize: "32px", fill: "#f00" }).setOrigin(0, 0);
+        self.add.text(config.width / 2 - 150, config.height / 2 + 20, "Press F5 to restart", { fontSize: "25px", fill: "#fff" }).setOrigin(0, 0);
       }
       updateHealthBar();
     } else {
@@ -334,8 +360,11 @@ function update() {
     sendPlayerMovement.call(this);
 
     // Kamera:
-    this.cameras.main.startFollow(this.player_ship, true, 1, 1);
-    this.cameras.main.setZoom(Phaser.Math.Clamp(this.cameras.main.zoom, 1.2, 1.2));
+    if (!playerDied) {
+      this.cameras.main.startFollow(this.player_ship, true, 1, 1);
+      this.cameras.main.setZoom(Phaser.Math.Clamp(this.cameras.main.zoom, 1.2, 1.2));
+    }
+
     updateHealthBar();
     updateHealthBarPosition(this);
 
