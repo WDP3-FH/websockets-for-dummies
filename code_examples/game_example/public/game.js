@@ -166,7 +166,14 @@ function create() {
 
         self.add.rectangle(0, 0, config.width, config.height, 0x000000, 0.8).setOrigin(0, 0);
         self.add.text(config.width / 2 - 100, config.height / 2 - 20, "You died!", { fontSize: "32px", fill: "#f00" }).setOrigin(0, 0);
-        self.add.text(config.width / 2 - 150, config.height / 2 + 20, "Press F5 to restart", { fontSize: "25px", fill: "#fff" }).setOrigin(0, 0);
+
+        let restartButton = self.add
+          .text(config.width / 2 - 180, config.height / 2 + 20, "Click here to restart now", { fontSize: "25px", fill: "#fff" })
+          .setOrigin(0, 0);
+        restartButton.setInteractive();
+        restartButton.on("pointerdown", () => {
+          window.location.reload();
+        });
       }
       updateHealthBar();
     } else {
