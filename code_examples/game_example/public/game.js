@@ -93,11 +93,12 @@ function create() {
   });
 
   //-----------------------
-  // Event: myDisconnect
+  // Event: userDisconnected
   //-----------------------
-  this.socket.on("myDisconnect", function (playerId) {
+  this.socket.on("userDisconnected", function (playerId) {
     otherPlayers.forEach(function (otherPlayer) {
       if (playerId === otherPlayer.playerId) {
+        otherPlayers.splice(otherPlayers.indexOf(otherPlayer), 1);
         otherPlayer.shadow.destroy();
         otherPlayer.destroy();
       }

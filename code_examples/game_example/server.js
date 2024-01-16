@@ -38,8 +38,8 @@ socketIo.on("connection", function (socket) {
   console.log("Server: a user connected");
 
   players[socket.id] = {
-    x: Math.floor(Math.random() * gameMapSize.width - 100) + 50,
-    y: Math.floor(Math.random() * gameMapSize.height - 100) + 50,
+    x: Math.floor(Math.random() * (gameMapSize.width - 2 * 70)) + gameMapSize.margin,
+    y: Math.floor(Math.random() * (gameMapSize.height - 2 * 70)) + gameMapSize.margin,
     playerId: socket.id,
     sprite: getNextAvailableSprite(),
   };
@@ -56,9 +56,7 @@ socketIo.on("connection", function (socket) {
 
     sprites.push(players[socket.id].sprite);
     delete players[socket.id];
-    socket.disconnect();
-
-    socketIo.emit("myDisconnect", socket.id);
+    socketIo.emit("userDisconnected", socket.id);
   });
 
   // Sobald ein Spieler seine Position aktualisiert, wird die Position an alle anderen Spieler gesendet
