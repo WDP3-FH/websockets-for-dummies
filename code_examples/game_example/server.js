@@ -38,8 +38,8 @@ socketIo.on("connection", function (socket) {
   console.log("Server: a user connected");
 
   players[socket.id] = {
-    x: Math.floor(Math.random() * (gameMapSize.width - 2 * 70)) + gameMapSize.margin,
-    y: Math.floor(Math.random() * (gameMapSize.height - 2 * 70)) + gameMapSize.margin,
+    x: Math.floor(Math.random() * (gameMapSize.width - 140)) + 70,
+    y: Math.floor(Math.random() * (gameMapSize.height - 140)) + 70,
     playerId: socket.id,
     sprite: getNextAvailableSprite(),
   };
