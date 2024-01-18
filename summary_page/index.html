@@ -26,11 +26,18 @@
                                 class="nav-logo"
                                 src="./img/logo.png"
                                 alt="Kreisförmiges Logo mit dem Schriftzug 'WebSockets for dummies'"
-                        /></a>
+                            />
+                            <span class="visually-hidden"
+                                >Zurück zur Startseite</span
+                            >
+                        </a>
                     </li>
                     <li>
                         <!-- icons from https://github.com/tailwindlabs/heroicons -->
-                        <div class="js-darkmode-toggle darkmode-toggle">
+                        <button
+                            class="js-darkmode-toggle darkmode-toggle"
+                            aria-label="Zu Light oder Dark-Mode wechseln"
+                        >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24"
@@ -55,7 +62,7 @@
                                     clip-rule="evenodd"
                                 />
                             </svg>
-                        </div>
+                        </button>
                     </li>
                 </ul>
             </div>
@@ -64,7 +71,7 @@
         <header class="main-header">
             <div class="headline-container">
                 <div class="feature-list">
-                    <p class="feature">Featured Posts</p>
+                    <a class="feature" href="./index.html">Featured Posts</a>
                     <div id="feature-svg">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
