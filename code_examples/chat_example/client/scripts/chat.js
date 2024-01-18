@@ -3,7 +3,6 @@ function addInputEventToInputFields() {
     const inputs = document.querySelectorAll("input");
     [].forEach.call(inputs, (input) => {
         input.addEventListener("input", (event) => {
-            console.log("test");
             event.target.style.width = event.target.value.length + 0.5 + "ch"; // 1ch == 1 character
         });
     });

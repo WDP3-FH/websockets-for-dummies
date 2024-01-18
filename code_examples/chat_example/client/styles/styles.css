@@ -1,6 +1,7 @@
 :root {
     --background-color: #191919;
     --text-color: #faf9f9;
+    --highlight-color: #ffbc42;
     --font-family: "Courier New", Courier, monospace;
 }
 
@@ -41,12 +42,10 @@ body {
     margin: 9px 0;
 }
 
-input[type="text"],
-input[type="text"]:focus {
+input[type="text"] {
     background: transparent;
     border: none;
     border-bottom: 1.5px dashed var(--text-color);
-    outline-width: 0;
 
     color: var(--text-color);
     font-family: var(--font-family-default);
@@ -56,14 +55,27 @@ input[type="text"]:focus {
     min-width: 200px;
 }
 
+input[type="text"]:focus {
+    border: none;
+    outline-color: var(--text-color);
+    outline-style: dashed;
+    outline-width: 1.5px;
+    outline-offset: 1.5px;
+    /* outline-color: cyan; */
+}
+
 .username {
     font-weight: bold;
 }
 
 .me {
-    color: green;
+    color: limegreen;
 }
 
 .notme {
-    color: red;
+    color: orangered;
+}
+
+#login-container {
+    margin-bottom: 24px;
 }
