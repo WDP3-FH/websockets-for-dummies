@@ -131,8 +131,8 @@ function sendHealingPackToAll(socketIo) {
 }
 
 function setHealingPackInterval(socketIo) {
-  // Zufällige Zeit zwischen 1Minute und 3Minuten
-  const randomInterval = Math.floor(Math.random() * 120000) + 60000;
+  // Zufällige Zeit zwischen 30 Sekunden und 3 Minuten
+  const randomInterval = Math.floor(Math.random() * (180000 - 30000 + 1)) + 30000;
 
   setTimeout(() => {
     sendHealingPackToAll(socketIo);
