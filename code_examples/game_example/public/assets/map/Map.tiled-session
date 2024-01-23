@@ -1,0 +1,54 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "first_map.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "basics.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 5.5
+        },
+        "first_map.tmx": {
+            "scale": 1.8584375,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 705.9693963342862,
+                "y": 208.77753489154196
+            }
+        },
+        "second_map.tmx": {
+            "scale": 0.510625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1803.6719706242347,
+                "y": 648.2252141982864
+            }
+        }
+    },
+    "last.imagePath": "C:/Users/rist2/Documents/GitHub/websockets-for-dummies/code_examples/game_example/public/assets/kenney_pixel-shmup/Tilemap",
+    "map.height": 80,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 120,
+    "openFiles": [
+        "first_map.tmx",
+        "basics.tsx",
+        "second_map.tmx"
+    ],
+    "project": "Map.tiled-project",
+    "recentFiles": [
+        "second_map.tmx",
+        "basics.tsx",
+        "first_map.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}
