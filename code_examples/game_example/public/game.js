@@ -114,6 +114,9 @@ function create() {
     alert("Game is full, please try again later");
   });
 
+  /*=============================================
+  =              For Presentation               =
+  =============================================*/
   //-----------------------
   // Event: playerMoved
   //-----------------------
@@ -124,6 +127,8 @@ function create() {
       }
     });
   });
+
+  /*=====  End of For Presentation  ======*/
 
   //-----------------------
   // Event: fireLaser
@@ -239,6 +244,9 @@ function addOtherPlayers(self, playerInfo) {
   otherPlayers.push(otherPlayer);
 }
 
+/*=============================================
+  =              For Presentation               =
+  =============================================*/
 function setShipToPosition(ship, x, y, angle) {
   ship.x = x;
   ship.y = y;
@@ -247,6 +255,7 @@ function setShipToPosition(ship, x, y, angle) {
   ship.angle = angle;
   ship.shadow.angle = angle;
 }
+/*=====  End of For Presentation  ======*/
 
 function createNewShip(self, playerInfo) {
   let newShip = self.add.sprite(playerInfo.x, playerInfo.y, playerInfo.sprite).setOrigin(0.5, 0.5);
@@ -359,23 +368,17 @@ function createHealingPack(self, healingPack) {
 }
 
 function showControlInstructionsPopup(scene) {
-  // Dark overlay background
   var overlay = scene.add.rectangle(0, 0, config.width, config.height, 0x000000, 0.8).setOrigin(0, 0);
   overlay.depth = 20;
 
   // Popup window
   var popup = scene.add.container(config.width / 2, config.height / 2);
   popup.depth = 21; // Make sure it's on top of other elements
-
-  // Popup background
   var popupBackground = scene.add.graphics();
   popupBackground.fillStyle(0xffffff, 1);
   popupBackground.fillRoundedRect(-150, -50, 300, 115, 10);
 
-  // Popup title
   var title = scene.add.text(0, -25, "Controls", { fontSize: "20px", fill: "#000" }).setOrigin(0.5);
-
-  // Control instructions
   var instructions = scene.add.text(0, 0, "Use arrow keys to move\nPress SPACE to shoot lasers", { fontSize: "14px", fill: "#000" }).setOrigin(0.5);
 
   // Close button
@@ -391,15 +394,11 @@ function showControlInstructionsPopup(scene) {
     popup.destroy();
   });
 
-  // Add elements to the popup container
   popup.add([popupBackground, title, instructions, closeButton]);
 
-  // Center the popup container within the camera's view, considering zoom
   var playerXInView = scene.player_ship.x - scene.cameras.main.worldView.x;
   var playerYInView = scene.player_ship.y - scene.cameras.main.worldView.y;
   popup.setPosition(playerXInView, playerYInView);
-
-  console.log("cameraCenterX: " + playerXInView + ", cameraCenterY: " + playerYInView);
 }
 
 ///////////////////////////
@@ -441,6 +440,9 @@ function update() {
 // Helper functions: Game loop
 /*===============================*/
 
+/*=============================================
+  =              For Presentation               =
+  =============================================*/
 function handlePlayerInput() {
   if (checkKeyDown.call(this, this.cursors.left)) {
     this.player_ship.angle = 270;
@@ -464,6 +466,7 @@ function handlePlayerInput() {
     fireLaserLocally.call(this);
   }
 }
+/*=====  End of For Presentation  ======*/
 
 function moveShip(ship, deltaX, deltaY) {
   var oldX = ship.x;
@@ -490,6 +493,9 @@ function checkKeyDown(cursors) {
   return this.input.keyboard.checkDown(cursors, 150); // Für mind. 150ms gedrückt halten
 }
 
+/*=============================================
+  =              For Presentation               =
+  =============================================*/
 function sendPlayerMovement() {
   if (
     this.player_ship.oldPosition &&
@@ -500,6 +506,7 @@ function sendPlayerMovement() {
 
   updatePlayerOldPosition.call(this, this.player_ship.x, this.player_ship.y);
 }
+/*=====  End of For Presentation  ======*/
 
 function updatePlayerOldPosition(x, y) {
   this.player_ship.oldPosition = { x, y };

@@ -66,6 +66,9 @@ socketIo.on("connection", function (socket) {
     socketIo.emit("userDisconnected", socket.id);
   });
 
+  /*=============================================
+  =              For Presentation               =
+  =============================================*/
   // Sobald ein Spieler seine Position aktualisiert, wird die Position an alle anderen Spieler gesendet
   socket.on("playerMovement", function (movementData) {
     players[socket.id].x = movementData.x;
@@ -73,6 +76,7 @@ socketIo.on("connection", function (socket) {
     players[socket.id].angle = movementData.angle;
     socket.broadcast.emit("playerMoved", players[socket.id]);
   });
+  /*=====  End of For Presentation  ======*/
 
   socket.on("fireLaser", function (laserData) {
     socketIo.emit("playerFiredLaser", laserData);
