@@ -3,6 +3,7 @@
 =============================================*/
 :root {
     --background-color: #efefef;
+    --img-background-color: #faf9f9;
     --alt-background-color: #03256c;
     --highlight-color: #ffbc42;
     --alt-highlight-color: #ffd6ba;
@@ -37,6 +38,7 @@
     --alt-background-color: #171b3d;
     --text-color: #faf9f9;
     --alt-text-color: #faf9f9;
+    --img-background-color: #faf9f9;
 }
 
 body {
@@ -79,6 +81,11 @@ a:active {
 a:focus,
 button:focus {
     outline-color: var(--highlight-color);
+}
+
+/* wrap text in pre element*/
+pre {
+    white-space: pre-wrap;
 }
 
 /*=============================================
@@ -237,6 +244,25 @@ h2 {
     font-weight: bold;
     margin: 0;
     color: var(--main-color);
+}
+
+/*----------  Intro  ----------*/
+#intro figure {
+    max-width: 450px;
+    margin: 1em auto;
+    display: block;
+}
+
+#intro figure img {
+    width: 100%;
+    background-color: var(--img-background-color);
+    border-radius: 4px;
+    padding: 20px;
+}
+
+#intro figure figcaption {
+    text-align: center;
+    font-style: italic;
 }
 
 /*----------  Code  ----------*/

@@ -130,10 +130,86 @@
                         erkunden und die Kraft dieser Technologie enthüllen!
                     </p>
                 </section>
+                <section id="intro">
+                    <h2>Überblick</h2>
+                    <h3>HTTP vs WebSockets</h3>
+                    <p>
+                        Im Protokoll HTTP erfolgt die Kommunikation immer nach
+                        dem gleichen Schema. Der Client schickt einen
+                        HTTP-Request an den Webserver und der Webserver schickt
+                        eine HTTP-Response zurück. Danach wird normalerweise die
+                        HTTP-Verbindung abgebaut. Dieser Ablauf ist zum Beispiel
+                        ideal für das Aufrufen von Webseiten.
+                    </p>
+                    <figure>
+                        <img
+                            src="./img/http_diagram.png"
+                            alt="Eine schematische Darstellung der gerade beschriebenen Kommunikation innerhalb von HTTP"
+                        />
+                        <figcaption>
+                            HTTP Client-Server-Kommunikation
+                        </figcaption>
+                    </figure>
+
+                    <p>
+                        Das Problem ist jedoch, dass der Server nicht
+                        selbständig Nachrichten an den Client schicken kann. Der
+                        Client müsste deshalb in einem vordefinierten Intervall
+                        ständig den Server abfragen, ob zum Beispiel eine neue
+                        Nachricht für ihn angekommen ist. Für Applikationen wie
+                        Chats oder Games ist es aber sehr wichtig, dass alle
+                        Clients die aktuellsten Daten aller anderen Clients
+                        erhalten. Hier bietet WebSockets eine Lösung.
+                    </p>
+
+                    <figure>
+                        <img
+                            src="./img/websockets_diagram.png"
+                            alt="Eine schematische Darstellung der Kommunikation mittels WebSockets"
+                        />
+                        <figcaption>
+                            WebSocket Client-Server-Kommunikation
+                        </figcaption>
+                    </figure>
+                    <p>
+                        Um eine WebSocket Verbindung herzustellen, schickt der
+                        Client zu Beginn einen HTTP Request, in dem er eine
+                        WebSocket Verbindung wünscht.
+                    </p>
+                    <pre class="display-code">
+<code class="language-css">
+GET ws://localhost:8080/ HTTP/1.1
+Host: localhost:8080
+Connection: Upgrade
+Upgrade: websocket
+Sec-WebSocket-Version: 13
+... 
+</code>
+</pre>
+                    <p>
+                        Unterstützt der angefragte Server diese
+                        WebSocket-Version antwortet dieser mit einem “HTTP/1.1
+                        101 Switching Protocols”
+                    </p>
+                    <pre class="display-code">
+<code class="language-css">
+HTTP/1.1 101 Switching Protocols
+Upgrade: websocket
+Connection: Upgrade
+...   
+</code>
+</pre>
+                    <p>
+                        Diese Verbindung bleibt offen und ermöglicht es sowohl
+                        dem Client als auch dem Server, Daten in Echtzeit zu
+                        senden und zu empfangen, ohne dass für jede Übertragung
+                        eine neue Verbindung hergestellt werden muss.
+                    </p>
+                </section>
                 <section id="exciting-details">
                     <h2>Implementierungsdetails</h2>
                     <section id="exciting-details--detail-one">
-                        <h3>Spannendes Implementierungsdetail 1.0</h3>
+                        <h3>node.js Server</h3>
                         <p>
                             Folgendes Code-Beispiel zeigt die verblüffende
                             css-Klasse .some-box. Sie ist außergewöhnlich, weil
@@ -256,6 +332,9 @@
                 <ol>
                     <li>
                         <a href="#motivation">Motivation</a>
+                    </li>
+                    <li>
+                        <a href="#intro">Überblick</a>
                     </li>
                     <li>
                         <a href="#exciting-details">
