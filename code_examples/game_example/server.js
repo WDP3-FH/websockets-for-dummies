@@ -37,9 +37,16 @@ socketIo.on("connection", function (socket) {
 
   console.log("Server: a user connected");
 
+  const centerX = gameMapSize.width / 2;
+  const centerY = gameMapSize.height / 2;
+  const centerSpawnWidth = 500;
+  const centerSpawnHeight = 350;
+  const randomX = Math.floor(Math.random() * centerSpawnWidth) + (centerX - centerSpawnWidth / 2);
+  const randomY = Math.floor(Math.random() * centerSpawnHeight) + (centerY - centerSpawnHeight / 2);
+
   players[socket.id] = {
-    x: Math.floor(Math.random() * (gameMapSize.width - 140)) + 70,
-    y: Math.floor(Math.random() * (gameMapSize.height - 140)) + 70,
+    x: randomX,
+    y: randomY,
     playerId: socket.id,
     sprite: getNextAvailableSprite(),
   };
@@ -124,8 +131,8 @@ function sendHealingPackToAll(socketIo) {
 }
 
 function setHealingPackInterval(socketIo) {
-  // Zufällige Zeit zwischen 30Sekunden und 2 Minuten
-  const randomInterval = Math.floor(Math.random() * (120000 - 30000 + 1) + 30000);
+  // Zufällige Zeit zwischen 1Minute und 3Minuten
+  const randomInterval = Math.floor(Math.random() * 120000) + 60000;
 
   setTimeout(() => {
     sendHealingPackToAll(socketIo);

@@ -38,6 +38,7 @@ var playerHealth = 100;
 var healthBar;
 var healingPacks = [];
 var playerDied = false;
+var alreadyShownControlInstructions = false;
 
 ///////////////////////////
 // Preload assets
@@ -357,6 +358,50 @@ function createHealingPack(self, healingPack) {
   });
 }
 
+function showControlInstructionsPopup(scene) {
+  // Dark overlay background
+  var overlay = scene.add.rectangle(0, 0, config.width, config.height, 0x000000, 0.8).setOrigin(0, 0);
+  overlay.depth = 20;
+
+  // Popup window
+  var popup = scene.add.container(config.width / 2, config.height / 2);
+  popup.depth = 21; // Make sure it's on top of other elements
+
+  // Popup background
+  var popupBackground = scene.add.graphics();
+  popupBackground.fillStyle(0xffffff, 1);
+  popupBackground.fillRoundedRect(-150, -50, 300, 115, 10);
+
+  // Popup title
+  var title = scene.add.text(0, -25, "Controls", { fontSize: "20px", fill: "#000" }).setOrigin(0.5);
+
+  // Control instructions
+  var instructions = scene.add.text(0, 0, "Use arrow keys to move\nPress SPACE to shoot lasers", { fontSize: "14px", fill: "#000" }).setOrigin(0.5);
+
+  // Close button
+  var closeButton = scene.add.text(0, 35, "Close", { fontSize: "16px", fill: "#fff", backgroundColor: "#3498db", padding: 5 }).setOrigin(0.5);
+  closeButton.setInteractive();
+  closeButton.on("pointerdown", function () {
+    overlay.destroy();
+    popup.destroy();
+  });
+
+  scene.input.keyboard.on("keydown", function () {
+    overlay.destroy();
+    popup.destroy();
+  });
+
+  // Add elements to the popup container
+  popup.add([popupBackground, title, instructions, closeButton]);
+
+  // Center the popup container within the camera's view, considering zoom
+  var playerXInView = scene.player_ship.x - scene.cameras.main.worldView.x;
+  var playerYInView = scene.player_ship.y - scene.cameras.main.worldView.y;
+  popup.setPosition(playerXInView, playerYInView);
+
+  console.log("cameraCenterX: " + playerXInView + ", cameraCenterY: " + playerYInView);
+}
+
 ///////////////////////////
 // Game loop
 ///////////////////////////
@@ -370,6 +415,11 @@ function update() {
     if (!playerDied) {
       this.cameras.main.startFollow(this.player_ship, true, 1, 1);
       this.cameras.main.setZoom(Phaser.Math.Clamp(this.cameras.main.zoom, 1.2, 1.2));
+    }
+
+    if (alreadyShownControlInstructions === false) {
+      showControlInstructionsPopup(this);
+      alreadyShownControlInstructions = true;
     }
 
     updateHealthBar();
