@@ -20,14 +20,18 @@
         <main>
             <div class="content-container">
                 <div id="login-container">
-                    YOUR username <i>&lt;press ENTER></i>:
+                    <label for="inputUsername"
+                        >YOUR username <i>&lt;press ENTER></i>:</label
+                    >
                     <input id="inputUsername" type="text" />
                 </div>
                 <!-- chat-container ist verborgen, da noch kein username eingegeben wurde -->
                 <div id="chat-container" class="hidden">
                     <div id="text-container"></div>
                     <div id="input-message-container">
-                        <span class="insert-username me">Username:</span>
+                        <label for="inputChat" class="insert-username me"
+                            >Username:</label
+                        >
                         <input id="inputChat" type="text" />
                     </div>
                 </div>
