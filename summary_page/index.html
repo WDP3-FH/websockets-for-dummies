@@ -180,24 +180,86 @@ Connection: Upgrade
                     </p>
                 </section>
                 <section id="exciting-details">
-                    <h2>Implementierungsdetails</h2>
-                    <section id="exciting-details--detail-one">
-                        <h3>node.js Server</h3>
-                        <p>
-                            Folgendes Code-Beispiel zeigt die verblüffende
-                            css-Klasse .some-box. Sie ist außergewöhnlich, weil
-                            ...
-                        </p>
-                        <pre class="display-code">
-<code class="language-css">
-.some-box {
-    width: 20px;
-    height: 20px;
-    background: black;
-    margin-bottom: 1.5rem;
-}
-</code>
-</pre>
+                    <h2>Implementierung</h2>
+                    <section id="simgle-websocket-application">
+                        <h3>Einfache Client/Server WebSocket Applikation</h3>
+                        <ol>
+                            <li>node.js Projekt einrichten</li>
+                            <p>
+                                <a href="https://nodejs.org/en">Node.js</a> kann
+                                von der offiziellen Node.js-Website
+                                heruntergeladen und installiert werden. Danach
+                                kann mittels <code>npm init -y</code> ein neuen
+                                node.js Projekt erstellt werden.
+                            </p>
+                            <li>npm ws</li>
+                            <p>
+                                Um mit node.js einen WebSockets-Server erstellen
+                                zu können, wird das Node-Package ws benötigt.
+                                Mit <code>npm i ws</code> kann es installiert
+                                werden.
+                            </p>
+                            <li>SERVER</li>
+                            <pre class="display-code">
+<code>
+import WebSocket, { WebSocketServer } from "ws";
+
+// WebSocket-Server erstellen
+const wss = new WebSocketServer({ port: 8080 });
+
+
+
+// Nachricht (open) von einem Client empfangen 
+// => Client verbindet sich mit Server
+wss.on("connection", function connection(ws) {
+
+    console.log("Server: a user connected");
+
+
+
+    // Nachricht (message) von einem Client empfangen 
+    // => Client hat eine Nachricht geschickt
+    ws.on("message", function message(data) {
+
+        console.log(`Client sent the server: ${data}`);
+        ws.send("Server received your message");
+
+    });
+
+
+
+    // Nachricht (close) von einem Client
+    ws.on("close", function close() {
+
+        console.log("Server: a client disconnected");
+        
+    });
+});</code>
+                                </pre>
+                            <li>CLIENT</li>
+                            <pre class="display-code">
+<code>
+// WebSocket Verbindung erstellen
+const socket = new WebSocket("ws://localhost:8080");
+
+
+
+// erfolgreich eine WebSocket Verbindung erstellt
+// Willkommensnachricht wird an Server geschickt
+socket.addEventListener("open", (event) => {
+    socket.send("Hello Server!");
+
+});
+
+
+
+// Event-Handling für Nachrichten vom Server an den Client
+socket.addEventListener("message", (event) => {
+    console.log(event.data);
+
+});</code>
+                            </pre>
+                        </ol>
                     </section>
                     <section id="exciting-details--detail-two">
                         <h3>Spannendes Implementierungsdetail 2.0</h3>
@@ -307,7 +369,17 @@ Connection: Upgrade
                     </section>
                 </section>
                 <section id="links">
-                    <h2>Weiterführende Links</h2>
+                    <h2>Weitere Links</h2>
+                    <h3>GitHub</h3>
+                    <ul>
+                        <li>
+                            <a
+                                class="resource-link"
+                                href="https://github.com/WDP3-FH/websockets-for-dummies"
+                                >WebSocket for dummies - GitHub</a
+                            >
+                        </li>
+                    </ul>
                     <h3>Socket.io</h3>
                     <ul>
                         <li>
