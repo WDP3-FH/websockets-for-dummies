@@ -260,15 +260,15 @@ app.get("/", function (req, res) {
                                 <code>
 // Socket.io-Events
 io.on("connection", function (socket) {
-console.log("[socket.io] Ein neuer Client hat sich verbunden.\n");
+    console.log("[socket.io] Ein neuer Client hat sich verbunden.\n");
 
-// SENDE "welcome"-Event an den Client:
-socket.emit("welcome", "Hello world");
+    // SENDE "welcome"-Event an den Client:
+    socket.emit("welcome", "Hello world");
 
-// Empfange "user agent"-Event vom Client:
-socket.on("user agent", function (data) {
-console.log(data, "\n");
-});
+    // Empfange "user agent"-Event vom Client:
+    socket.on("user agent", function (data) {
+        console.log(data, "\n");
+    });
 });
                                 </code>
                             </pre>
@@ -305,7 +305,7 @@ var socket = io('http://localhost:8080');
 
 // Event-Handler für das "welcome"-Event
 socket.on('welcome', function (data) {
-console.log('Empfangenes "welcome"-Event vom Server:', data);
+    console.log('Empfangenes "welcome"-Event vom Server:', data);
 });
 
 // Beispiel: Daten zum Server senden (user agent)
@@ -313,6 +313,23 @@ var userAgentData = navigator.userAgent;
 socket.emit('user agent', userAgentData);
                                 </code>
                             </pre>
+
+                            <li>Server starten</li>
+                            <p>
+                                Um den server zu starten müssen nun folgende
+                                Befehle ausgeführt werden
+                            </p>
+                            <pre class="display-code">
+                            <code>
+npm install
+npm run
+                            </code>
+                            </pre>
+                            <p>
+                                Nun kann die Verbindung hergestellt werden,
+                                indem im Browser http://localhost:8080
+                                eingegeben wird.
+                            </p>
                         </ol>
                     </section>
                 </section>
