@@ -88,6 +88,24 @@ pre {
     white-space: pre-wrap;
 }
 
+h3 {
+    margin-bottom: 0;
+}
+
+h3 + p {
+    margin-top: 0.5em;
+}
+
+section h2 + section {
+    margin-top: 1em;
+    padding-top: 0;
+}
+
+.inside-section + .inside-section {
+    margin-top: 0;
+    padding-top: 0;
+}
+
 /*=============================================
 =               Top-Navigation                =
 =============================================*/

@@ -233,7 +233,101 @@ Connection: Upgrade
                 </section>
                 <section id="lessons-learned">
                     <h2>Lessons learned</h2>
-                    <p>...</p>
+                    <!-- ein kleiner WebSocket-Server ist sehr schnell aufgebaut
+Event-Handling bei nativer WebSocket-Implementierung sehr mühsam
+Socket.io bietet mehr Funktionen an (ver. Protokolle, Reconnection, Event-Handling, …)
+Code auf mehreren verschiedenen Dateien auslagern (vor allem beim Spiel Beispiel klar ersichtlich)
+Die Library Phaser bietet kaum Dokumentation für Einsteiger an, daher ist es besonders am Anfang schwierig herauszufinden, wie diese arbeitet. Im Nachhinein 
+wäre vermutlich eine Library, die besser für kleine Projekte geeignet ist, besser gewesen. -->
+                    <section class="inside-section">
+                        <h3>schneller Einstieg</h3>
+                        <p>
+                            Mittels dem Node-Package
+                            <a
+                                href="https://www.npmjs.com/package/ws"
+                                aria-label="Link zu node-package ws"
+                                >ws</a
+                            >
+                            und der nativen WebSocket-Unterstützung im Browser
+                            kann mit nur sehr wenig Aufwand eine vollständige
+                            WebSocket-Applikation in kurzer Zeit entwickelt
+                            werden. Um den Server zu testen ist auch kein
+                            vollständig implementierter Client notwendig. Als
+                            Testwerkzeug kann zum Beispiel die Chrome Extension
+                            <a
+                                class="resource-link"
+                                href="https://github.com/olshevskiy87/simple-websocket-client"
+                                >Simple WebSocket Client</a
+                            >
+                            verwendet werden.
+                        </p>
+                    </section>
+                    <section class="inside-section">
+                        <h3>Message/Event-Handling</h3>
+                        <p>
+                            Der WebSocket-Server kann verschiedenste
+                            Nachrichtenarten
+                        </p>
+                        <ul>
+                            <li>neue Chat-Nachrichten</li>
+                            <li>neue Freundschaftsanfrage</li>
+                            <li>...</li>
+                        </ul>
+                        <p>
+                            von verschiedenen Clients empfangen. Um
+                            herauszufinden, welche Art von Nachricht der Server
+                            bekommen hat, muss manuell ein Typ in der Nachricht
+                            gesetzt werden.
+                        </p>
+                        <p>
+                            Der Typ der Nachricht bestimmt, wie genau mit der
+                            empfangen Nachrichten umgegangen werden soll:
+                        </p>
+                        <ul>
+                            <li>
+                                neue Chat-Nachricht => alle Chatteilnehmer
+                                benachrichtigen
+                            </li>
+                            <li>
+                                neue Freundschaftsanfrage => zukünftigen Freund
+                                informieren
+                            </li>
+                            <li>...</li>
+                        </ul>
+                        <p>
+                            Das Reagieren auf verschiedene Nachrichtentypen
+                            mittels WebSockets ist sehr
+                            implementierungsaufwändig, da WebSockets
+                            standardmäßig keine Nachrichtentypen kennt. Der
+                            Nachrichtentyp muss jedes mal manuell in die Daten,
+                            die mit WebSockets versenden werden eingetragen
+                            werden. Im Server muss entsprechen darauf reagiert
+                            werden. Um eine sinnvolle Event-basierte Anwendung
+                            mittels WebSockets zu implementieren, sollte auf
+                            Libraries wie Socket.io zurückgegriffen werden.
+                        </p>
+                    </section>
+                    <section class="inside-section">
+                        <h3>Socket.io</h3>
+                        <p>
+                            Socket.io bietet mehr Funktionen an (ver.
+                            Protokolle, Reconnection, Event-Handling, …)
+                        </p>
+                        <p>
+                            Code auf mehreren verschiedenen Dateien auslagern
+                            (vor allem beim Spiel Beispiel klar ersichtlich)
+                        </p>
+                    </section>
+                    <section class="inside-section">
+                        <h3>Phaser</h3>
+                        <p>
+                            Die Library Phaser bietet kaum Dokumentation für
+                            Einsteiger an, daher ist es besonders am Anfang
+                            schwierig herauszufinden, wie diese arbeitet. Im
+                            Nachhinein wäre vermutlich eine Library, die besser
+                            für kleine Projekte geeignet ist, besser gewesen.
+                        </p>
+                    </section>
                 </section>
                 <section id="links">
                     <h2>Weiterführende Links</h2>
