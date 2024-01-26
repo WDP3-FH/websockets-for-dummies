@@ -233,13 +233,7 @@ Connection: Upgrade
                 </section>
                 <section id="lessons-learned">
                     <h2>Lessons learned</h2>
-                    <!-- ein kleiner WebSocket-Server ist sehr schnell aufgebaut
-Event-Handling bei nativer WebSocket-Implementierung sehr mühsam
-Socket.io bietet mehr Funktionen an (ver. Protokolle, Reconnection, Event-Handling, …)
-Code auf mehreren verschiedenen Dateien auslagern (vor allem beim Spiel Beispiel klar ersichtlich)
-Die Library Phaser bietet kaum Dokumentation für Einsteiger an, daher ist es besonders am Anfang schwierig herauszufinden, wie diese arbeitet. Im Nachhinein 
-wäre vermutlich eine Library, die besser für kleine Projekte geeignet ist, besser gewesen. -->
-                    <section class="inside-section">
+                    <section class="inside-section" id="fast-entry">
                         <h3>schneller Einstieg</h3>
                         <p>
                             Mittels dem Node-Package
@@ -262,26 +256,23 @@ wäre vermutlich eine Library, die besser für kleine Projekte geeignet ist, bes
                             verwendet werden.
                         </p>
                     </section>
-                    <section class="inside-section">
+                    <section class="inside-section" id="message-handling">
                         <h3>Message/Event-Handling</h3>
                         <p>
                             Der WebSocket-Server kann verschiedenste
-                            Nachrichtenarten
+                            Nachrichtenarten vom Client empfangen, wie
+                            beispielsweise
                         </p>
                         <ul>
                             <li>neue Chat-Nachrichten</li>
                             <li>neue Freundschaftsanfrage</li>
-                            <li>...</li>
                         </ul>
                         <p>
-                            von verschiedenen Clients empfangen. Um
-                            herauszufinden, welche Art von Nachricht der Server
-                            bekommen hat, muss manuell ein Typ in der Nachricht
-                            gesetzt werden.
-                        </p>
-                        <p>
-                            Der Typ der Nachricht bestimmt, wie genau mit der
-                            empfangen Nachrichten umgegangen werden soll:
+                            Um herauszufinden, welche Art von Nachricht der
+                            Server bekommen hat, muss manuell ein Typ in der
+                            Nachricht gesetzt werden. Der Typ der Nachricht
+                            bestimmt, wie genau mit der empfangen Nachrichten
+                            umgegangen werden soll:
                         </p>
                         <ul>
                             <li>
@@ -292,7 +283,6 @@ wäre vermutlich eine Library, die besser für kleine Projekte geeignet ist, bes
                                 neue Freundschaftsanfrage => zukünftigen Freund
                                 informieren
                             </li>
-                            <li>...</li>
                         </ul>
                         <p>
                             Das Reagieren auf verschiedene Nachrichtentypen
@@ -321,11 +311,12 @@ wäre vermutlich eine Library, die besser für kleine Projekte geeignet ist, bes
                     <section class="inside-section">
                         <h3>Phaser</h3>
                         <p>
-                            Die Library Phaser bietet kaum Dokumentation für
-                            Einsteiger an, daher ist es besonders am Anfang
-                            schwierig herauszufinden, wie diese arbeitet. Im
-                            Nachhinein wäre vermutlich eine Library, die besser
-                            für kleine Projekte geeignet ist, besser gewesen.
+                            Die Library Phaser, die als Game-Engine genutzt
+                            wird, bietet kaum Dokumentation für Einsteiger an,
+                            daher ist es besonders am Anfang schwierig
+                            herauszufinden, wie diese arbeitet. Im Nachhinein
+                            wäre vermutlich eine Library, die besser für kleine
+                            Projekte geeignet ist, besser gewesen.
                         </p>
                     </section>
                 </section>
@@ -449,6 +440,16 @@ wäre vermutlich eine Library, die besser für kleine Projekte geeignet ist, bes
                     </li>
                     <li>
                         <a href="#lessons-learned">Lessons learned</a>
+                        <ul>
+                            <li>
+                                <a href="#fast-entry">Schneller Einstieg</a>
+                            </li>
+                            <li>
+                                <a href="#message-handling"
+                                    >Message/Event Handling</a
+                                >
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="#links">Weiterführende Links</a>
