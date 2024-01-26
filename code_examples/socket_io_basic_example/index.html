@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="de">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Socket.io Client</title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js"></script>
+  </head>
+
+  <body>
+    <script>
+      // Verbindung zum Socket.io-Server herstellen
+      var socket = io('http://localhost:8080');
+
+      // Event-Handler für das "welcome"-Event
+      socket.on('welcome', function (data) {
+        console.log('Empfangenes "welcome"-Event vom Server:', data);
+      });
+
+      // Beispiel: Daten zum Server senden (user agent)
+      var userAgentData = navigator.userAgent;
+      socket.emit('user agent', userAgentData);
+    </script>
+  </body>
+
+</html>
+
+<!--===========================================
+=               Ausgabe console               =
+============================================-->
+<!-- Empfangenes "welcome"-Event vom Server: Hello world -->
+
