@@ -180,24 +180,86 @@ Connection: Upgrade
                     </p>
                 </section>
                 <section id="exciting-details">
-                    <h2>Implementierungsdetails</h2>
-                    <section id="exciting-details--detail-one">
-                        <h3>node.js Server</h3>
-                        <p>
-                            Folgendes Code-Beispiel zeigt die verblüffende
-                            css-Klasse .some-box. Sie ist außergewöhnlich, weil
-                            ...
-                        </p>
-                        <pre class="display-code">
-<code class="language-css">
-.some-box {
-    width: 20px;
-    height: 20px;
-    background: black;
-    margin-bottom: 1.5rem;
-}
-</code>
-</pre>
+                    <h2>Implementierung</h2>
+                    <section id="simgle-websocket-application">
+                        <h3>Einfache Client/Server WebSocket Applikation</h3>
+                        <ol>
+                            <li>node.js Projekt einrichten</li>
+                            <p>
+                                <a href="https://nodejs.org/en">Node.js</a> kann
+                                von der offiziellen Node.js-Website
+                                heruntergeladen und installiert werden. Danach
+                                kann mittels <code>npm init -y</code> ein neuen
+                                node.js Projekt erstellt werden.
+                            </p>
+                            <li>npm ws</li>
+                            <p>
+                                Um mit node.js einen WebSockets-Server erstellen
+                                zu können, wird das Node-Package ws benötigt.
+                                Mit <code>npm i ws</code> kann es installiert
+                                werden.
+                            </p>
+                            <li>SERVER</li>
+                            <pre class="display-code">
+<code>
+import WebSocket, { WebSocketServer } from "ws";
+
+// WebSocket-Server erstellen
+const wss = new WebSocketServer({ port: 8080 });
+
+
+
+// Nachricht (open) von einem Client empfangen 
+// => Client verbindet sich mit Server
+wss.on("connection", function connection(ws) {
+
+    console.log("Server: a user connected");
+
+
+
+    // Nachricht (message) von einem Client empfangen 
+    // => Client hat eine Nachricht geschickt
+    ws.on("message", function message(data) {
+
+        console.log(`Client sent the server: ${data}`);
+        ws.send("Server received your message");
+
+    });
+
+
+
+    // Nachricht (close) von einem Client
+    ws.on("close", function close() {
+
+        console.log("Server: a client disconnected");
+        
+    });
+});</code>
+                                </pre>
+                            <li>CLIENT</li>
+                            <pre class="display-code">
+<code>
+// WebSocket Verbindung erstellen
+const socket = new WebSocket("ws://localhost:8080");
+
+
+
+// erfolgreich eine WebSocket Verbindung erstellt
+// Willkommensnachricht wird an Server geschickt
+socket.addEventListener("open", (event) => {
+    socket.send("Hello Server!");
+
+});
+
+
+
+// Event-Handling für Nachrichten vom Server an den Client
+socket.addEventListener("message", (event) => {
+    console.log(event.data);
+
+});</code>
+                            </pre>
+                        </ol>
                     </section>
                     <section id="simple_socket_io">
                         <h3>Einführung in Socket.IO</h3>
@@ -335,10 +397,121 @@ npm run
                 </section>
                 <section id="lessons-learned">
                     <h2>Lessons learned</h2>
-                    <p>...</p>
+                    <section class="inside-section" id="fast-entry">
+                        <h3>schneller Einstieg</h3>
+                        <p>
+                            Mittels dem Node-Package
+                            <a
+                                href="https://www.npmjs.com/package/ws"
+                                aria-label="Link zu node-package ws"
+                                >ws</a
+                            >
+                            und der nativen WebSocket-Unterstützung im Browser
+                            kann mit nur sehr wenig Aufwand eine vollständige
+                            WebSocket-Applikation in kurzer Zeit entwickelt
+                            werden. Um den Server zu testen ist auch kein
+                            vollständig implementierter Client notwendig. Als
+                            Testwerkzeug kann zum Beispiel die Chrome Extension
+                            <a
+                                class="resource-link"
+                                href="https://github.com/olshevskiy87/simple-websocket-client"
+                                >Simple WebSocket Client</a
+                            >
+                            verwendet werden.
+                        </p>
+                    </section>
+                    <section class="inside-section" id="message-handling">
+                        <h3>Message/Event-Handling</h3>
+                        <p>
+                            Der WebSocket-Server kann verschiedenste
+                            Nachrichtenarten vom Client empfangen, wie
+                            beispielsweise
+                        </p>
+                        <ul>
+                            <li>neue Chat-Nachrichten</li>
+                            <li>neue Freundschaftsanfrage</li>
+                        </ul>
+                        <p>
+                            Um herauszufinden, welche Art von Nachricht der
+                            Server bekommen hat, muss manuell ein Typ in der
+                            Nachricht gesetzt werden. Der Typ der Nachricht
+                            bestimmt, wie genau mit der empfangen Nachrichten
+                            umgegangen werden soll:
+                        </p>
+                        <ul>
+                            <li>
+                                neue Chat-Nachricht => alle Chatteilnehmer
+                                benachrichtigen
+                            </li>
+                            <li>
+                                neue Freundschaftsanfrage => zukünftigen Freund
+                                informieren
+                            </li>
+                        </ul>
+                        <p>
+                            Das Reagieren auf verschiedene Nachrichtentypen
+                            mittels WebSockets ist sehr
+                            implementierungsaufwändig, da WebSockets
+                            standardmäßig keine Nachrichtentypen kennt. Der
+                            Nachrichtentyp muss jedes mal manuell in die Daten,
+                            die mit WebSockets versenden werden eingetragen
+                            werden. Im Server muss entsprechen darauf reagiert
+                            werden. Um eine sinnvolle Event-basierte Anwendung
+                            mittels WebSockets zu implementieren, sollte auf
+                            Libraries wie Socket.io zurückgegriffen werden.
+                        </p>
+                    </section>
+                    <section class="inside-section" id="socket-io">
+                        <h3>Socket.io</h3>
+                        <p>
+                            Hiermit wird die Arbeit mit WebSockets vereinfacht
+                            und zudem eine umfassende Palette von Funktionen
+                            bereitgestellt, die über einfache
+                            WebSocket-Verbindungen hinausgehen. Dazu gehören
+                            verschiedene Übertragungsprotokolle, automatische
+                            Wiederherstellung von Verbindungen, umfangreiches
+                            Event-Handling und mehr. Die Bibliothek bietet somit
+                            eine robuste Grundlage für Echtzeitkommunikation in
+                            Webanwendungen.
+                        </p>
+                    </section>
+                    <section class="inside-section" id="code-management">
+                        <h3>Strukturierteres Code-Management</h3>
+                        <p>
+                            Es ist ratsam, den Code in verschiedenen Dateien
+                            auszulagern, insbesondere wenn die Anwendung
+                            komplexer wird. Bei dem Game-Beispiel wird dies
+                            besonders ersichtlich. Durch die Auslagerung von
+                            Code in separate Dateien können einzelne Funktionen
+                            oder Module klarer identifiziert, gewartet und
+                            getestet werden. Dies fördert auch die
+                            Wiederverwendbarkeit von Code.
+                        </p>
+                    </section>
+                    <section class="inside-section" id="phaser">
+                        <h3>Phaser</h3>
+                        <p>
+                            Die Library Phaser, die als Game-Engine genutzt
+                            wird, bietet kaum Dokumentation für Einsteiger an,
+                            daher ist es besonders am Anfang schwierig
+                            herauszufinden, wie diese arbeitet. Im Nachhinein
+                            wäre vermutlich eine Library, die besser für kleine
+                            Projekte geeignet ist, besser gewesen.
+                        </p>
+                    </section>
                 </section>
                 <section id="links">
-                    <h2>Weiterführende Links</h2>
+                    <h2>Weitere Links</h2>
+                    <h3>GitHub</h3>
+                    <ul>
+                        <li>
+                            <a
+                                class="resource-link"
+                                href="https://github.com/WDP3-FH/websockets-for-dummies"
+                                >WebSocket for dummies - GitHub</a
+                            >
+                        </li>
+                    </ul>
                     <h3>Socket.io</h3>
                     <ul>
                         <li>
@@ -437,6 +610,25 @@ npm run
                     </li>
                     <li>
                         <a href="#lessons-learned">Lessons learned</a>
+                        <ul>
+                            <li>
+                                <a href="#fast-entry">Schneller Einstieg</a>
+                            </li>
+                            <li>
+                                <a href="#message-handling"
+                                    >Message/Event Handling</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#socket-io">Socket.io</a>
+                            </li>
+                            <li>
+                                <a href="#code-management">Code-Management</a>
+                            </li>
+                            <li>
+                                <a href="#phaser">Phaser</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="#links">Weiterführende Links</a>
