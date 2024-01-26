@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
+
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,8 +11,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
             href="https://fonts.googleapis.com/css2?family=Martel+Sans:wght@400;600;700&display=swap"
-            rel="stylesheet"
-        />
+            rel="stylesheet" />
         <link href="./styles/styles.css" rel="stylesheet" />
     </head>
 
@@ -21,46 +21,30 @@
             <div class="nav-container">
                 <ul>
                     <li>
-                        <a href="./index.html"
-                            ><img
-                                class="nav-logo"
+                        <a href="./index.html"><img class="nav-logo"
                                 src="./img/logo.png"
-                                alt="Kreisförmiges Logo mit dem Schriftzug 'WebSockets for dummies'"
-                            />
-                            <span class="visually-hidden"
-                                >Zurück zur Startseite</span
-                            >
+                                alt="Kreisförmiges Logo mit dem Schriftzug 'WebSockets for dummies'" />
+                            <span class="visually-hidden">Zurück zur
+                                Startseite</span>
                         </a>
                     </li>
                     <li>
                         <!-- icons from https://github.com/tailwindlabs/heroicons -->
-                        <button
-                            class="js-darkmode-toggle darkmode-toggle"
-                            aria-label="Zu Light oder Dark-Mode wechseln"
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                                data-slot="icon"
-                                class="js-darkmode-sun"
-                            >
+                        <button class="js-darkmode-toggle darkmode-toggle"
+                            aria-label="Zu Light oder Dark-Mode wechseln">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24" fill="currentColor"
+                                data-slot="icon" class="js-darkmode-sun">
                                 <path
-                                    d="M12 2.25a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75ZM7.5 12a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM18.894 6.166a.75.75 0 0 0-1.06-1.06l-1.591 1.59a.75.75 0 1 0 1.06 1.061l1.591-1.59ZM21.75 12a.75.75 0 0 1-.75.75h-2.25a.75.75 0 0 1 0-1.5H21a.75.75 0 0 1 .75.75ZM17.834 18.894a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 1 0-1.061 1.06l1.59 1.591ZM12 18a.75.75 0 0 1 .75.75V21a.75.75 0 0 1-1.5 0v-2.25A.75.75 0 0 1 12 18ZM7.758 17.303a.75.75 0 0 0-1.061-1.06l-1.591 1.59a.75.75 0 0 0 1.06 1.061l1.591-1.59ZM6 12a.75.75 0 0 1-.75.75H3a.75.75 0 0 1 0-1.5h2.25A.75.75 0 0 1 6 12ZM6.697 7.757a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 0 0-1.061 1.06l1.59 1.591Z"
-                                />
+                                    d="M12 2.25a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75ZM7.5 12a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM18.894 6.166a.75.75 0 0 0-1.06-1.06l-1.591 1.59a.75.75 0 1 0 1.06 1.061l1.591-1.59ZM21.75 12a.75.75 0 0 1-.75.75h-2.25a.75.75 0 0 1 0-1.5H21a.75.75 0 0 1 .75.75ZM17.834 18.894a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 1 0-1.061 1.06l1.59 1.591ZM12 18a.75.75 0 0 1 .75.75V21a.75.75 0 0 1-1.5 0v-2.25A.75.75 0 0 1 12 18ZM7.758 17.303a.75.75 0 0 0-1.061-1.06l-1.591 1.59a.75.75 0 0 0 1.06 1.061l1.591-1.59ZM6 12a.75.75 0 0 1-.75.75H3a.75.75 0 0 1 0-1.5h2.25A.75.75 0 0 1 6 12ZM6.697 7.757a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 0 0-1.061 1.06l1.59 1.591Z" />
                             </svg>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24" fill="currentColor"
                                 data-slot="icon"
-                                class="js-darkmode-moon hidden"
-                            >
-                                <path
-                                    fill-rule="evenodd"
+                                class="js-darkmode-moon hidden">
+                                <path fill-rule="evenodd"
                                     d="M9.528 1.718a.75.75 0 0 1 .162.819A8.97 8.97 0 0 0 9 6a9 9 0 0 0 9 9 8.97 8.97 0 0 0 3.463-.69.75.75 0 0 1 .981.98 10.503 10.503 0 0 1-9.694 6.46c-5.799 0-10.5-4.7-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 0 1 .818.162Z"
-                                    clip-rule="evenodd"
-                                />
+                                    clip-rule="evenodd" />
                             </svg>
                         </button>
                     </li>
@@ -73,17 +57,10 @@
                 <div class="feature-list">
                     <a class="feature" href="./index.html">Featured Posts</a>
                     <div id="feature-svg">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                            height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="9 18 15 12 9 6"></polyline>
                         </svg>
                     </div>
@@ -142,10 +119,8 @@
                         ideal für das Aufrufen von Webseiten.
                     </p>
                     <figure>
-                        <img
-                            src="./img/http_diagram.png"
-                            alt="Eine schematische Darstellung der gerade beschriebenen Kommunikation innerhalb von HTTP"
-                        />
+                        <img src="./img/http_diagram.png"
+                            alt="Eine schematische Darstellung der gerade beschriebenen Kommunikation innerhalb von HTTP" />
                         <figcaption>
                             HTTP Client-Server-Kommunikation
                         </figcaption>
@@ -163,10 +138,8 @@
                     </p>
 
                     <figure>
-                        <img
-                            src="./img/websockets_diagram.png"
-                            alt="Eine schematische Darstellung der Kommunikation mittels WebSockets"
-                        />
+                        <img src="./img/websockets_diagram.png"
+                            alt="Eine schematische Darstellung der Kommunikation mittels WebSockets" />
                         <figcaption>
                             WebSocket Client-Server-Kommunikation
                         </figcaption>
@@ -430,22 +403,17 @@ npm run
                         <h3>schneller Einstieg</h3>
                         <p>
                             Mittels dem Node-Package
-                            <a
-                                href="https://www.npmjs.com/package/ws"
-                                aria-label="Link zu node-package ws"
-                                >ws</a
-                            >
+                            <a href="https://www.npmjs.com/package/ws"
+                                aria-label="Link zu node-package ws">ws</a>
                             und der nativen WebSocket-Unterstützung im Browser
                             kann mit nur sehr wenig Aufwand eine vollständige
                             WebSocket-Applikation in kurzer Zeit entwickelt
                             werden. Um den Server zu testen ist auch kein
                             vollständig implementierter Client notwendig. Als
                             Testwerkzeug kann zum Beispiel die Chrome Extension
-                            <a
-                                class="resource-link"
-                                href="https://github.com/olshevskiy87/simple-websocket-client"
-                                >Simple WebSocket Client</a
-                            >
+                            <a class="resource-link"
+                                href="https://github.com/olshevskiy87/simple-websocket-client">Simple
+                                WebSocket Client</a>
                             verwendet werden.
                         </p>
                     </section>
@@ -534,66 +502,52 @@ npm run
                     <h3>GitHub</h3>
                     <ul>
                         <li>
-                            <a
-                                class="resource-link"
-                                href="https://github.com/WDP3-FH/websockets-for-dummies"
-                                >WebSocket for dummies - GitHub</a
-                            >
+                            <a class="resource-link"
+                                href="https://github.com/WDP3-FH/websockets-for-dummies">WebSocket
+                                for dummies - GitHub</a>
                         </li>
                     </ul>
                     <h3>Socket.io</h3>
                     <ul>
                         <li>
-                            <a
-                                class="resource-link"
-                                href="https://socket.io/demos/chat/"
-                                >Working WebSocket Chat Example</a
-                            >
+                            <a class="resource-link"
+                                href="https://socket.io/demos/chat/">Working
+                                WebSocket Chat Example</a>
                         </li>
                         <li>
-                            <a
-                                class="resource-link"
-                                href="https://github.com/socketio/socket.io/tree/master/examples/chat"
-                                >Working WebSocket Chat Example - Code</a
-                            >
+                            <a class="resource-link"
+                                href="https://github.com/socketio/socket.io/tree/master/examples/chat">Working
+                                WebSocket Chat Example - Code</a>
                         </li>
                     </ul>
                     <h3>Guides & Tutorials</h3>
                     <ul>
                         <li>
-                            <a
-                                class="resource-link"
-                                href="https://unsere-schule.org/programmieren/javascript/websocket-chat-und-multiplayer-spiel/"
-                                >WebSocket Game & Chat</a
-                            >
+                            <a class="resource-link"
+                                href="https://unsere-schule.org/programmieren/javascript/websocket-chat-und-multiplayer-spiel/">WebSocket
+                                Game & Chat</a>
                         </li>
                         <li>
-                            <a
-                                class="resource-link"
-                                href="https://www.honeybadger.io/blog/websocket-node/"
-                                >Create Node.js WebSocket Server</a
-                            >
+                            <a class="resource-link"
+                                href="https://www.honeybadger.io/blog/websocket-node/">Create
+                                Node.js WebSocket Server</a>
                         </li>
                     </ul>
                     <h3>Videos</h3>
                     <ul>
                         <li>
-                            <a
-                                class="resource-link"
-                                href="https://www.youtube.com/watch?v=FduLSXEHLng&ab_channel=dcode"
-                                >How to use WebSockets - JavaScript Tutorial For
-                                Beginners</a
-                            >
+                            <a class="resource-link"
+                                href="https://www.youtube.com/watch?v=FduLSXEHLng&ab_channel=dcode">How
+                                to use WebSockets - JavaScript Tutorial For
+                                Beginners</a>
                         </li>
                     </ul>
                     <h3>Testing tools</h3>
                     <ul>
                         <li>
-                            <a
-                                class="resource-link"
-                                href="https://github.com/olshevskiy87/simple-websocket-client"
-                                >Simple WebSocket Client (Chrome Extension)</a
-                            >
+                            <a class="resource-link"
+                                href="https://github.com/olshevskiy87/simple-websocket-client">Simple
+                                WebSocket Client (Chrome Extension)</a>
                         </li>
                     </ul>
                 </section>
@@ -602,28 +556,27 @@ npm run
                     <!-- Bilder in ver. Größen folgen, wenn richtige Bilder eingefügt -->
                     <div class="project-team-member">
                         <!-- genauere alt-Beschreibungen folgen, wenn richtige Bilder eingefügt-->
-                        <img
-                            src="./img/jan_donnerbauer.jpeg"
-                            alt="Bild des Teammitglieds Jan Donnerbauer"
-                        />
-                        <div
-                            class="project-team-member-content"
-                            id="project-team--jan-donnerbauer"
-                        >
+                        <img src="./img/jan_donnerbauer.jpeg"
+                            alt="Bild des Teammitglieds Jan Donnerbauer" />
+                        <div class="project-team-member-content"
+                            id="project-team--jan-donnerbauer">
                             <h3>Jan Donnerbauer</h3>
                             <p>WebSocket-Experte seit der ersten Stunde</p>
                         </div>
-                        <img
-                            src="./img/elias_rist.jpeg"
-                            alt="Bild des Teammitglieds Elias Rist"
-                        />
-                        <div
-                            class="project-team-member-content"
-                            id="project-team--elias-rist"
-                        >
+                        <img src="./img/elias_rist.jpg"
+                            alt="Bild des Teammitglieds Elias Rist" />
+                        <div class="project-team-member-content"
+                            id="project-team--elias-rist">
                             <h3>Elias Rist</h3>
                             <p>
-                                30+ Jahre Erfahrung im Bereich Web-Development
+                                Besuchte zuvor die HTL-Anichstraße in
+                                Innsbruck
+                                (Tirol) mit dem Schwerpunkt
+                                Wirtschaftsingenieurwesen -
+                                Betriebsinformatik.
+                                Dabei kommt er aus dem schönen Tirol und ist
+                                ein
+                                großer Fan vom Wintersport.
                             </p>
                         </div>
                     </div>
@@ -664,9 +617,8 @@ npm run
                                 <a href="#fast-entry">Schneller Einstieg</a>
                             </li>
                             <li>
-                                <a href="#message-handling"
-                                    >Message/Event Handling</a
-                                >
+                                <a href="#message-handling">Message/Event
+                                    Handling</a>
                             </li>
                             <li>
                                 <a href="#socket-io">Socket.io</a>
@@ -727,4 +679,5 @@ npm run
 
         <script src="./scripts/index.js"></script>
     </body>
+
 </html>
