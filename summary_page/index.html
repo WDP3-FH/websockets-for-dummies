@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="de">
-
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,7 +10,8 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
             href="https://fonts.googleapis.com/css2?family=Martel+Sans:wght@400;600;700&display=swap"
-            rel="stylesheet" />
+            rel="stylesheet"
+        />
         <link href="./styles/styles.css" rel="stylesheet" />
     </head>
 
@@ -21,30 +21,46 @@
             <div class="nav-container">
                 <ul>
                     <li>
-                        <a href="./index.html"><img class="nav-logo"
+                        <a href="./index.html"
+                            ><img
+                                class="nav-logo"
                                 src="./img/logo.png"
-                                alt="Kreisförmiges Logo mit dem Schriftzug 'WebSockets for dummies'" />
-                            <span class="visually-hidden">Zurück zur
-                                Startseite</span>
+                                alt="Kreisförmiges Logo mit dem Schriftzug 'WebSockets for dummies'"
+                            />
+                            <span class="visually-hidden"
+                                >Zurück zur Startseite</span
+                            >
                         </a>
                     </li>
                     <li>
                         <!-- icons from https://github.com/tailwindlabs/heroicons -->
-                        <button class="js-darkmode-toggle darkmode-toggle"
-                            aria-label="Zu Light oder Dark-Mode wechseln">
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24" fill="currentColor"
-                                data-slot="icon" class="js-darkmode-sun">
-                                <path
-                                    d="M12 2.25a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75ZM7.5 12a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM18.894 6.166a.75.75 0 0 0-1.06-1.06l-1.591 1.59a.75.75 0 1 0 1.06 1.061l1.591-1.59ZM21.75 12a.75.75 0 0 1-.75.75h-2.25a.75.75 0 0 1 0-1.5H21a.75.75 0 0 1 .75.75ZM17.834 18.894a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 1 0-1.061 1.06l1.59 1.591ZM12 18a.75.75 0 0 1 .75.75V21a.75.75 0 0 1-1.5 0v-2.25A.75.75 0 0 1 12 18ZM7.758 17.303a.75.75 0 0 0-1.061-1.06l-1.591 1.59a.75.75 0 0 0 1.06 1.061l1.591-1.59ZM6 12a.75.75 0 0 1-.75.75H3a.75.75 0 0 1 0-1.5h2.25A.75.75 0 0 1 6 12ZM6.697 7.757a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 0 0-1.061 1.06l1.59 1.591Z" />
-                            </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24" fill="currentColor"
+                        <button
+                            class="js-darkmode-toggle darkmode-toggle"
+                            aria-label="Zu Light oder Dark-Mode wechseln"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
                                 data-slot="icon"
-                                class="js-darkmode-moon hidden">
-                                <path fill-rule="evenodd"
+                                class="js-darkmode-sun"
+                            >
+                                <path
+                                    d="M12 2.25a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75ZM7.5 12a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM18.894 6.166a.75.75 0 0 0-1.06-1.06l-1.591 1.59a.75.75 0 1 0 1.06 1.061l1.591-1.59ZM21.75 12a.75.75 0 0 1-.75.75h-2.25a.75.75 0 0 1 0-1.5H21a.75.75 0 0 1 .75.75ZM17.834 18.894a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 1 0-1.061 1.06l1.59 1.591ZM12 18a.75.75 0 0 1 .75.75V21a.75.75 0 0 1-1.5 0v-2.25A.75.75 0 0 1 12 18ZM7.758 17.303a.75.75 0 0 0-1.061-1.06l-1.591 1.59a.75.75 0 0 0 1.06 1.061l1.591-1.59ZM6 12a.75.75 0 0 1-.75.75H3a.75.75 0 0 1 0-1.5h2.25A.75.75 0 0 1 6 12ZM6.697 7.757a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 0 0-1.061 1.06l1.59 1.591Z"
+                                />
+                            </svg>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                data-slot="icon"
+                                class="js-darkmode-moon hidden"
+                            >
+                                <path
+                                    fill-rule="evenodd"
                                     d="M9.528 1.718a.75.75 0 0 1 .162.819A8.97 8.97 0 0 0 9 6a9 9 0 0 0 9 9 8.97 8.97 0 0 0 3.463-.69.75.75 0 0 1 .981.98 10.503 10.503 0 0 1-9.694 6.46c-5.799 0-10.5-4.7-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 0 1 .818.162Z"
-                                    clip-rule="evenodd" />
+                                    clip-rule="evenodd"
+                                />
                             </svg>
                         </button>
                     </li>
@@ -57,10 +73,17 @@
                 <div class="feature-list">
                     <a class="feature" href="./index.html">Featured Posts</a>
                     <div id="feature-svg">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                            height="16" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
                             <polyline points="9 18 15 12 9 6"></polyline>
                         </svg>
                     </div>
@@ -119,8 +142,10 @@
                         ideal für das Aufrufen von Webseiten.
                     </p>
                     <figure>
-                        <img src="./img/http_diagram.png"
-                            alt="Eine schematische Darstellung der gerade beschriebenen Kommunikation innerhalb von HTTP" />
+                        <img
+                            src="./img/http_diagram.png"
+                            alt="Eine schematische Darstellung der gerade beschriebenen Kommunikation innerhalb von HTTP"
+                        />
                         <figcaption>
                             HTTP Client-Server-Kommunikation
                         </figcaption>
@@ -138,8 +163,10 @@
                     </p>
 
                     <figure>
-                        <img src="./img/websockets_diagram.png"
-                            alt="Eine schematische Darstellung der Kommunikation mittels WebSockets" />
+                        <img
+                            src="./img/websockets_diagram.png"
+                            alt="Eine schematische Darstellung der Kommunikation mittels WebSockets"
+                        />
                         <figcaption>
                             WebSocket Client-Server-Kommunikation
                         </figcaption>
@@ -263,11 +290,12 @@ socket.addEventListener("message", (event) => {
                     </section>
                     <section id="simple_socket_io">
                         <h3>Einführung in Socket.IO</h3>
-                        <p>Diese kurze einführung dient
-                            dazu, die Grundlagen von Socket.IO zu verstehen und
-                            die wichtigsten Begriffe kennenzulernen und somit
-                            einen schnellen Einstieg in die Materie zu
-                            ermöglichen.</p>
+                        <p>
+                            Diese kurze einführung dient dazu, die Grundlagen
+                            von Socket.IO zu verstehen und die wichtigsten
+                            Begriffe kennenzulernen und somit einen schnellen
+                            Einstieg in die Materie zu ermöglichen.
+                        </p>
                         <ol>
                             <li>Express-App erstellen</li>
                             <p>
@@ -294,10 +322,11 @@ var io = socketIo(server);
                             </pre>
 
                             <li>Routing</li>
-                            <p> Um nun eine index.html-Datei an den Client zu
-                                senden wird
-                                ein einfaches Routing benötigt. Dieses Routing
-                                wird mit dem folgenden Code erstellt:
+                            <p>
+                                Um nun eine index.html-Datei an den Client zu
+                                senden wird ein einfaches Routing benötigt.
+                                Dieses Routing wird mit dem folgenden Code
+                                erstellt:
                             </p>
                             <pre class="display-code">
                                 <code>
@@ -337,10 +366,11 @@ io.on("connection", function (socket) {
 
                             <li>Socket.IO-Client</li>
                             <p>Socket.Io hinzufügen</p>
-                            <p>Um Socket.IO verwenden zu können muss die
+                            <p>
+                                Um Socket.IO verwenden zu können muss die
                                 Bibliothek eingebunden werden. Hierfür einfach
-                                in der html-Datei
-                                zum folgenden script eine Verlinkung herstellen.
+                                in der html-Datei zum folgenden script eine
+                                Verlinkung herstellen.
                             </p>
                             <pre class="display-code">
                                 <code>
@@ -355,10 +385,9 @@ https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js
                                 Event empfangen wird, soll die Nachricht in der
                                 Konsole ausgegeben werden. Danach soll der
                                 Client ein "user agent"-Event an den Server
-                                senden, in
-                                dem er die Daten des Browsers an den Server
-                                sendet. Hierfür muss folgendes Script in einer
-                                index.html Seite beigefügt werden:
+                                senden, in dem er die Daten des Browsers an den
+                                Server sendet. Hierfür muss folgendes Script in
+                                einer index.html Seite beigefügt werden:
                             </p>
                             <pre class="display-code">
                                 <code>
@@ -515,44 +544,56 @@ npm run
                     <h3>Socket.io</h3>
                     <ul>
                         <li>
-                            <a class="resource-link"
-                                href="https://socket.io/demos/chat/">Working
-                                WebSocket Chat Example</a>
+                            <a
+                                class="resource-link"
+                                href="https://socket.io/demos/chat/"
+                                >Working WebSocket Chat Example</a
+                            >
                         </li>
                         <li>
-                            <a class="resource-link"
-                                href="https://github.com/socketio/socket.io/tree/master/examples/chat">Working
-                                WebSocket Chat Example - Code</a>
+                            <a
+                                class="resource-link"
+                                href="https://github.com/socketio/socket.io/tree/master/examples/chat"
+                                >Working WebSocket Chat Example - Code</a
+                            >
                         </li>
                     </ul>
                     <h3>Guides & Tutorials</h3>
                     <ul>
                         <li>
-                            <a class="resource-link"
-                                href="https://unsere-schule.org/programmieren/javascript/websocket-chat-und-multiplayer-spiel/">WebSocket
-                                Game & Chat</a>
+                            <a
+                                class="resource-link"
+                                href="https://unsere-schule.org/programmieren/javascript/websocket-chat-und-multiplayer-spiel/"
+                                >WebSocket Game & Chat</a
+                            >
                         </li>
                         <li>
-                            <a class="resource-link"
-                                href="https://www.honeybadger.io/blog/websocket-node/">Create
-                                Node.js WebSocket Server</a>
+                            <a
+                                class="resource-link"
+                                href="https://www.honeybadger.io/blog/websocket-node/"
+                                >Create Node.js WebSocket Server</a
+                            >
                         </li>
                     </ul>
                     <h3>Videos</h3>
                     <ul>
                         <li>
-                            <a class="resource-link"
-                                href="https://www.youtube.com/watch?v=FduLSXEHLng&ab_channel=dcode">How
-                                to use WebSockets - JavaScript Tutorial For
-                                Beginners</a>
+                            <a
+                                class="resource-link"
+                                href="https://www.youtube.com/watch?v=FduLSXEHLng&ab_channel=dcode"
+                                >How to use WebSockets - JavaScript Tutorial For
+                                Beginners</a
+                            >
                         </li>
                     </ul>
                     <h3>Testing tools</h3>
                     <ul>
                         <li>
-                            <a class="resource-link"
-                                href="https://github.com/olshevskiy87/simple-websocket-client">Simple
-                                WebSocket Client (Chrome Extension)</a>
+                            <a
+                                class="resource-link"
+                                href="https://github.com/olshevskiy87/simple-websocket-client"
+                                >Simple WebSocket Client (Chrome Extension)</a
+                            >
                         </li>
                     </ul>
                 </section>
@@ -561,17 +602,25 @@ npm run
                     <!-- Bilder in ver. Größen folgen, wenn richtige Bilder eingefügt -->
                     <div class="project-team-member">
                         <!-- genauere alt-Beschreibungen folgen, wenn richtige Bilder eingefügt-->
-                        <img src="./img/jan_donnerbauer.jpeg"
-                            alt="Bild des Teammitglieds Jan Donnerbauer" />
-                        <div class="project-team-member-content"
-                            id="project-team--jan-donnerbauer">
+                        <img
+                            src="./img/jan_donnerbauer.jpeg"
+                            alt="Bild des Teammitglieds Jan Donnerbauer"
+                        />
+                        <div
+                            class="project-team-member-content"
+                            id="project-team--jan-donnerbauer"
+                        >
                             <h3>Jan Donnerbauer</h3>
                             <p>WebSocket-Experte seit der ersten Stunde</p>
                         </div>
-                        <img src="./img/elias_rist.jpeg"
-                            alt="Bild des Teammitglieds Elias Rist" />
-                        <div class="project-team-member-content"
-                            id="project-team--elias-rist">
+                        <img
+                            src="./img/elias_rist.jpeg"
+                            alt="Bild des Teammitglieds Elias Rist"
+                        />
+                        <div
+                            class="project-team-member-content"
+                            id="project-team--elias-rist"
+                        >
                             <h3>Elias Rist</h3>
                             <p>
                                 30+ Jahre Erfahrung im Bereich Web-Development
@@ -597,8 +646,8 @@ npm run
                         </a>
                         <ul>
                             <li>
-                                <a href="#exciting-details--detail-one">
-                                    Detail 1
+                                <a href="#simgle-websocket-application">
+                                    Einfacher Client/Server
                                 </a>
                             </li>
                             <li>
@@ -678,5 +727,4 @@ npm run
 
         <script src="./scripts/index.js"></script>
     </body>
-
 </html>
