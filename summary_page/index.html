@@ -211,23 +211,31 @@ Connection: Upgrade
                     <section id="simgle-websocket-application">
                         <h3>Einfache Client/Server WebSocket Applikation</h3>
                         <ol>
-                            <li>node.js Projekt einrichten</li>
-                            <p>
-                                <a href="https://nodejs.org/en">Node.js</a> kann
-                                von der offiziellen Node.js-Website
-                                heruntergeladen und installiert werden. Danach
-                                kann mittels <code>npm init -y</code> ein neues
-                                node.js Projekt erstellt werden.
-                            </p>
-                            <li>npm ws</li>
-                            <p>
-                                Um mit node.js einen WebSockets-Server erstellen
-                                zu können, wird das Node-Package ws benötigt.
-                                Mit <code>npm i ws</code> kann es installiert
-                                werden.
-                            </p>
-                            <li>WebSocket SERVER</li>
-                            <pre class="display-code">
+                            <li>
+                                node.js Projekt einrichten
+                                <p>
+                                    <a href="https://nodejs.org/en">Node.js</a>
+                                    kann von der offiziellen Node.js-Website
+                                    heruntergeladen und installiert werden.
+                                    Danach kann mittels
+                                    <code>npm init -y</code> ein neues node.js
+                                    Projekt erstellt werden.
+                                </p>
+                            </li>
+
+                            <li>
+                                npm ws
+                                <p>
+                                    Um mit node.js einen WebSockets-Server
+                                    erstellen zu können, wird das Node-Package
+                                    ws benötigt. Mit <code>npm i ws</code> kann
+                                    es installiert werden.
+                                </p>
+                            </li>
+
+                            <li>
+                                WebSocket SERVER
+                                <pre class="display-code">
 <code>
 import WebSocket, { WebSocketServer } from "ws";
 
@@ -263,8 +271,10 @@ wss.on("connection", function connection(ws) {
     });
 });</code>
                                 </pre>
-                            <li>WebSocket CLIENT</li>
-                            <pre class="display-code">
+                            </li>
+                            <li>
+                                WebSocket CLIENT
+                                <pre class="display-code">
 <code>
 // WebSocket Verbindung erstellen
 const socket = new WebSocket("ws://localhost:8080");
@@ -286,6 +296,7 @@ socket.addEventListener("message", (event) => {
 
 });</code>
                             </pre>
+                            </li>
                         </ol>
                     </section>
                     <section id="simple_socket_io">
@@ -297,15 +308,16 @@ socket.addEventListener("message", (event) => {
                             Einstieg in die Materie zu ermöglichen.
                         </p>
                         <ol>
-                            <li>Express-App erstellen</li>
-                            <p>
-                                Der Server erstellt eine Express-App und einen
-                                HTTP-Server mit dem Port 8080. Um einen
-                                Socket.IO-Server zu erstellen, muss der
-                                HTTP-Server an Socket.IO anschließend übergeben
-                                werden.
-                            </p>
-                            <pre class="display-code">
+                            <li>
+                                Express-App erstellen
+                                <p>
+                                    Der Server erstellt eine Express-App und
+                                    einen HTTP-Server mit dem Port 8080. Um
+                                    einen Socket.IO-Server zu erstellen, muss
+                                    der HTTP-Server an Socket.IO anschließend
+                                    übergeben werden.
+                                </p>
+                                <pre class="display-code">
                                 <code>
 // Erforderliche Module
 var express = require("express");
@@ -320,15 +332,17 @@ var server = http.createServer(app);
 var io = socketIo(server);
                                 </code>
                             </pre>
+                            </li>
 
-                            <li>Routing</li>
-                            <p>
-                                Um nun eine index.html-Datei an den Client zu
-                                senden wird ein einfaches Routing benötigt.
-                                Dieses Routing wird mit dem folgenden Code
-                                erstellt:
-                            </p>
-                            <pre class="display-code">
+                            <li>
+                                Routing
+                                <p>
+                                    Um nun eine index.html-Datei an den Client
+                                    zu senden wird ein einfaches Routing
+                                    benötigt. Dieses Routing wird mit dem
+                                    folgenden Code erstellt:
+                                </p>
+                                <pre class="display-code">
                                 <code>
 // Routen-Handler für die Startseite
 app.get("/", function (req, res) {
@@ -336,18 +350,20 @@ app.get("/", function (req, res) {
 });
                                 </code>
                             </pre>
+                            </li>
 
-                            <li>Socket.IO-Server</li>
-                            <p>
-                                Der Socket.IO Server soll sobald sich ein neuer
-                                Client mit ihm verbindet eine Nachricht mithilfe
-                                eines "welcome"-Events an den neu verbundenen
-                                Client senden. Zudem soll der Server auf ein
-                                "user agent"-Event warten und die Daten, die der
-                                Client an den Server sendet, in der Konsole
-                                ausgeben.
-                            </p>
-                            <pre class="display-code">
+                            <li>
+                                Socket.IO-Server
+                                <p>
+                                    Der Socket.IO Server soll sobald sich ein
+                                    neuer Client mit ihm verbindet eine
+                                    Nachricht mithilfe eines "welcome"-Events an
+                                    den neu verbundenen Client senden. Zudem
+                                    soll der Server auf ein "user agent"-Event
+                                    warten und die Daten, die der Client an den
+                                    Server sendet, in der Konsole ausgeben.
+                                </p>
+                                <pre class="display-code">
                                 <code>
 // Socket.io-Events
 io.on("connection", function (socket) {
@@ -363,33 +379,37 @@ io.on("connection", function (socket) {
 });
                                 </code>
                             </pre>
+                            </li>
 
-                            <li>Socket.IO hinzufügen</li>
-                            <p>
-                                Um Socket.IO verwenden zu können muss die
-                                Bibliothek eingebunden werden. Hierfür einfach
-                                in der html-Datei zum folgenden script eine
-                                Verlinkung herstellen.
-                            </p>
-                            <pre class="display-code">
+                            <li>
+                                Socket.IO hinzufügen
+                                <p>
+                                    Um Socket.IO verwenden zu können muss die
+                                    Bibliothek eingebunden werden. Hierfür
+                                    einfach in der html-Datei zum folgenden
+                                    script eine Verlinkung herstellen.
+                                </p>
+                                <pre class="display-code">
                                 <code>
                                     https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js
                                 </code>
                             </pre>
-
-                            <li>Socket.IO-Client</li>
-                            <p>
-                                Der Socket.IO-Client soll sich mit dem
-                                Socket.IO-Server verbinden und auf ein
-                                "welcome"-Event vom Server warten. Sobald dieses
-                                Event empfangen wird, soll die Nachricht in der
-                                Konsole ausgegeben werden. Danach soll der
-                                Client ein "user agent"-Event an den Server
-                                senden, in dem er die Daten des Browsers an den
-                                Server sendet. Hierfür muss folgendes Script in
-                                einer index.html Seite beigefügt werden:
-                            </p>
-                            <pre class="display-code">
+                            </li>
+                            <li>
+                                Socket.IO-Client
+                                <p>
+                                    Der Socket.IO-Client soll sich mit dem
+                                    Socket.IO-Server verbinden und auf ein
+                                    "welcome"-Event vom Server warten. Sobald
+                                    dieses Event empfangen wird, soll die
+                                    Nachricht in der Konsole ausgegeben werden.
+                                    Danach soll der Client ein "user
+                                    agent"-Event an den Server senden, in dem er
+                                    die Daten des Browsers an den Server sendet.
+                                    Hierfür muss folgendes Script in einer
+                                    index.html Seite beigefügt werden:
+                                </p>
+                                <pre class="display-code">
                                 <code>
 // Verbindung zum Socket.io-Server herstellen
 var socket = io('http://localhost:8080');
@@ -404,23 +424,26 @@ var userAgentData = navigator.userAgent;
 socket.emit('user agent', userAgentData);
                                 </code>
                             </pre>
+                            </li>
 
-                            <li>Server starten</li>
-                            <p>
-                                Um den Server zu starten müssen nun folgende
-                                Befehle ausgeführt werden
-                            </p>
-                            <pre class="display-code">
+                            <li>
+                                Server starten
+                                <p>
+                                    Um den Server zu starten müssen nun folgende
+                                    Befehle ausgeführt werden
+                                </p>
+                                <pre class="display-code">
                             <code>
 npm install
 npm run
                             </code>
                             </pre>
-                            <p>
-                                Nun kann die Verbindung hergestellt werden,
-                                indem im Browser http://localhost:8080
-                                eingegeben wird.
-                            </p>
+                                <p>
+                                    Nun kann die Verbindung hergestellt werden,
+                                    indem im Browser http://localhost:8080
+                                    eingegeben wird.
+                                </p>
+                            </li>
                         </ol>
                     </section>
                 </section>
